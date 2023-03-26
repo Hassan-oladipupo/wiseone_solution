@@ -1,0 +1,41 @@
+<div class="row" ng-controller="ServicesCtrl" ng-init="getServices()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-tasks"></i> Background Services</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption text-danger" ng-show="disabled===true;"> <i class="fa fa-spinner fa-spin"></i> loading services... </span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <!-- Location -->
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="service in Services">
+                                <div class="databox bg-white radius-bordered">
+                                    <div class="databox-left bg-themesecondary">
+                                        <div class="databox-piechart text-center">
+                                            <i ng-if="service.Spin" class="fa fa-circle-o-notch fa-3x fa-spin"></i>
+                                            <i ng-if="!service.Spin" class="fa fa-circle-o-notch fa-3x"></i>
+                                        </div>
+                                    </div>
+                                    <div class="databox-right">
+                                        <span class="databox-number number-sm themeprimary"><b>{{service.Name}}</b></span>
+                                        <div class="databox-text darkgray"><i class="fa fa-clock-o"></i> <b>{{service.LastRunDate}}</b></div>
+                                        <div class="databox-stat themesecondary radius-bordered">
+                                            <i class="stat-icon icon-lg fa fa-tasks"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

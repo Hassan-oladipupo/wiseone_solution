@@ -1,0 +1,99 @@
+<div class="row" ng-controller="ViewTaskCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-list"></i> View Task</h5>
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption">Search Panel</span>
+                    </div>
+                    <div class="widget-body ">
+                        <div id="horizontal-form">
+                            <form>
+                                <!--DATE CREATED-->
+                                <div class="form-group">
+                                    <label>Date Created</label>
+                                    <input date-range-picker id="daterange4" name="daterange4" class="form-control date-picker" type="text" ng-model="searchValue.dateRequested" options="searchValue.dateRequested.opts" />
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-5 col-sm-5 col-xs-5">
+                                        <div class="form-group">
+                                            <label>Staff (First name or Surname)</label>
+                                            <input type="text" class="form-control" ng-model="searchValue.staffName" placeholder="First name or Surname" capitalize>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-2 col-xs-2">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-lg-5 col-sm-5 col-xs-5">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" name="type" ng-model="searchValue.status">
+                                                <option value="">Select Status</option>
+                                                <option value="Assigned">Assigned</option>
+                                                <option value="InProgess">InProgess</option>
+                                                <option value="Completed">Completed</option>          
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <button type="button" ng-click="searchTasks()" class="btn btn-default themeprimary bordered-themeprimary" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption">Task List</span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themesecondary bordered-themesecondary" ng-click="searchTasks()" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000"><i class="fa fa-refresh"></i></button>
+                        </div>
+                    </div>
+                    <div class="widget-body overflow">
+                        <table id="taskList" class="table table-sorting table-hover table-bordered datatable dt-rows" cellspacing="0 " width="100% ">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Type</th>
+                                    <th>Task Leader</th>
+                                    <th>Date of Completion</th>
+                                    <th>Last Updated By</th>
+                                    <th>Last Updated On</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Type</th>
+                                    <th>Task Leader</th>
+                                    <th>Date of Completion</th>
+                                    <th>Last Updated By</th>
+                                    <th>Last Updated On</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

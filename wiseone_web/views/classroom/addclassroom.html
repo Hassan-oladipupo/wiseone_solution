@@ -1,0 +1,41 @@
+<div class="row" ng-controller="AddClassRoomCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-plus-square"></i> Add Room</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption text-danger" ng-show="disabled===true;"> <i class="fa fa-spinner fa-spin"></i> loading locations... </span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <form name="classRoomForm" ng-submit="save()" novalidate>
+
+                                <!-- Location -->
+                                <div class="form-group" ng-class="{ 'has-error' : classRoomForm.location.$invalid && !classRoomForm.location.$pristine } ">
+                                    <label>Location*</label>
+                                    <select class="form-control " name="location " ng-options="option.Name for option in Locations " ng-model="classRoom.Location " required>
+                                            <option value=" ">Select Location</option>
+                                        </select>
+                                </div>
+
+                                <!-- Name -->
+                                <div class="form-group" ng-class="{ 'has-error' : classRoomForm.name.$invalid && !classRoomForm.name.$pristine }">
+                                    <label>Name*</label>
+                                    <input type="text" name="name" class="form-control" ng-model="classRoom.Name" placeholder="Name" required capitalize>
+                                </div>
+
+                                <button type="submit" ng-disabled="!classRoomForm.$valid" class="btn btn-default themeprimary bordered-themeprimary" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000"><i class="fa fa-save "></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0EF484B3-FCAE-46F7-B82B-691842B21B0E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>flexiCoreLibrary</RootNamespace>
+    <AssemblyName>flexiCoreLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ZenSend, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZenSend.2.0.0\lib\net451\ZenSend.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\ApprovalDL.cs" />
+    <Compile Include="Data\ApproverEmailDL.cs" />
+    <Compile Include="Data\ClassRoomDL.cs" />
+    <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\FeedSettingDL.cs" />
+    <Compile Include="Data\FinancialYearDL.cs" />
+    <Compile Include="Data\FunctionDL.cs" />
+    <Compile Include="Data\LocationDL.cs" />
+    <Compile Include="Data\MessageDL.cs" />
+    <Compile Include="Data\RoleDL.cs" />
+    <Compile Include="Data\ShiftConfigDL.cs" />
+    <Compile Include="Data\SignInOutDL.cs" />
+    <Compile Include="Data\StaffDL.cs" />
+    <Compile Include="Data\StaffShiftFeedDL.cs" />
+    <Compile Include="Data\TaskDL.cs" />
+    <Compile Include="Dto\ApprovalDto.cs" />
+    <Compile Include="Dto\ApproverEmailDto.cs" />
+    <Compile Include="Dto\ApprovingRolesDto.cs" />
+    <Compile Include="Dto\ClassRoomDto.cs" />
+    <Compile Include="Dto\ConversationDto.cs" />
+    <Compile Include="Dto\ExcludeMonthDto.cs" />
+    <Compile Include="Dto\FinancialYearDto.cs" />
+    <Compile Include="Dto\FinancialYearMonthDayDto.cs" />
+    <Compile Include="Dto\FinancialYearMonthDto.cs" />
+    <Compile Include="Dto\FunctionDto.cs" />
+    <Compile Include="Dto\LeaveApprovalDto.cs" />
+    <Compile Include="Dto\LeaveRequestDto.cs" />
+    <Compile Include="Dto\LeaveTypeDto.cs" />
+    <Compile Include="Dto\LocationDto.cs" />
+    <Compile Include="Dto\LocationTypeDto.cs" />
+    <Compile Include="Dto\MessageDto.cs" />
+    <Compile Include="Dto\ReportDto.cs" />
+    <Compile Include="Dto\ReportSummaryDto.cs" />
+    <Compile Include="Dto\RoleDto.cs" />
+    <Compile Include="Dto\SecondLevelApproverEmailDto.cs" />
+    <Compile Include="Dto\ServicesDto.cs" />
+    <Compile Include="Dto\ShiftConfigDto.cs" />
+    <Compile Include="Dto\ShiftDto.cs" />
+    <Compile Include="Dto\ShiftSwapDto.cs" />
+    <Compile Include="Dto\ShiftSwapRequestDto.cs" />
+    <Compile Include="Dto\ShiftUtilityDto.cs" />
+    <Compile Include="Dto\SignInOutDto.cs" />
+    <Compile Include="Dto\StaffConversationDto.cs" />
+    <Compile Include="Dto\StaffDto.cs" />
+    <Compile Include="Dto\StaffLeaveDetailsDto.cs" />
+    <Compile Include="Dto\StaffLeaveDto.cs" />
+    <Compile Include="Dto\StaffReportDto.cs" />
+    <Compile Include="Dto\StaffShiftDto.cs" />
+    <Compile Include="Dto\StaffShiftFeedDto.cs" />
+    <Compile Include="Dto\StaffSignInDetailDto.cs" />
+    <Compile Include="Dto\StaffSignInDto.cs" />
+    <Compile Include="Dto\StaffReportSummaryDto.cs" />
+    <Compile Include="Dto\TaskDto.cs" />
+    <Compile Include="Dto\TaskStaffDto.cs" />
+    <Compile Include="Dto\TaskUpdateDto.cs" />
+    <Compile Include="Extensions\FormatExtension.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Message.cs" />
+    <Compile Include="Model\Report.cs" />
+    <Compile Include="Model\Approval.cs" />
+    <Compile Include="Model\ApproverEmail.cs" />
+    <Compile Include="Model\ClassRoom.cs" />
+    <Compile Include="Model\FeedSetting.cs" />
+    <Compile Include="Model\FinancialYear.cs" />
+    <Compile Include="Model\FinancialYearMonth.cs" />
+    <Compile Include="Model\FinancialYearMonthDay.cs" />
+    <Compile Include="Model\Function.cs" />
+    <Compile Include="Model\Location.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\RoleFunction.cs" />
+    <Compile Include="Model\SecondLevelApproverEmail.cs" />
+    <Compile Include="Model\ShiftConfig.cs" />
+    <Compile Include="Model\ShiftSwap.cs" />
+    <Compile Include="Model\ShiftSwapRequest.cs" />
+    <Compile Include="Model\SignInOut.cs" />
+    <Compile Include="Model\Staff.cs" />
+    <Compile Include="Model\StaffLeave.cs" />
+    <Compile Include="Model\StaffShift.cs" />
+    <Compile Include="Model\StaffShiftFeed.cs" />
+    <Compile Include="Model\Task.cs" />
+    <Compile Include="Model\TaskStaff.cs" />
+    <Compile Include="Model\TaskUpdate.cs" />
+    <Compile Include="Process\ApproverEmailPL.cs" />
+    <Compile Include="Process\ClassRoomPL.cs" />
+    <Compile Include="Process\FeedSettingPL.cs" />
+    <Compile Include="Process\FinancialYearPL.cs" />
+    <Compile Include="Process\FunctionPL.cs" />
+    <Compile Include="Process\LocationPL.cs" />
+    <Compile Include="Process\MessagePL.cs" />
+    <Compile Include="Process\RolePL.cs" />
+    <Compile Include="Process\ShiftConfigPL.cs" />
+    <Compile Include="Process\SignInOutPL.cs" />
+    <Compile Include="Process\StaffPL.cs" />
+    <Compile Include="Process\StaffShiftFeedPL.cs" />
+    <Compile Include="Process\TaskPL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushNotification\Engine.cs" />
+    <Compile Include="PushNotification\Message.cs" />
+    <Compile Include="PushNotification\MessageContent.cs" />
+    <Compile Include="PushNotification\Notification.cs" />
+    <Compile Include="PushNotification\Response.cs" />
+    <Compile Include="PushNotification\ResultContent.cs" />
+    <Compile Include="SMS\SMSDTO.cs" />
+    <Compile Include="SMS\SMSFailCodeMeaning.cs" />
+    <Compile Include="SMS\SMSResponse.cs" />
+    <Compile Include="SMS\SMSUtility.cs" />
+    <Compile Include="Utility\Archives.cs" />
+    <Compile Include="Utility\Base64Conversions.cs" />
+    <Compile Include="Utility\Crypter.cs" />
+    <Compile Include="Utility\DateUtil.cs" />
+    <Compile Include="Utility\Enums.cs" />
+    <Compile Include="Utility\ErrorHandler.cs" />
+    <Compile Include="Utility\Extentions.cs" />
+    <Compile Include="Utility\Mail.cs" />
+    <Compile Include="Utility\MailApprover.cs" />
+    <Compile Include="Utility\MailHelper.cs" />
+    <Compile Include="Utility\PasswordHash.cs" />
+    <Compile Include="Utility\RijndaelEnhanced.cs" />
+    <Compile Include="Utility\SearchFilter.cs" />
+    <Compile Include="Utility\ShouldSerializeContractResolver.cs" />
+    <Compile Include="Utility\Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,24 @@
+<div class="modal-header bg-themeprimary flexi-profile-icon">
+    <i class="fa fa-check-square-o"></i> Approve or Decline Over Time
+</div>
+<div class="modal-body">
+    <div>
+        <div>
+            <h5 class="row-title before-themeprimary">Shift Details</h5>
+            <div class="well well-lg">
+                <h2 class="themeprimary"><i class="fa fa-user themeprimary"></i>{{overTime.StaffName}}</h2>
+                <p><b><i class="fa fa-calendar"></i> {{overTime.Day}}, {{overTime.Date}}</b> </p>
+                <p><b><i class="fa fa-building"></i> Location:</b> {{overTime.Room.Location.Name | uppercase}} </p>
+                <p><b><i class="fa fa-building-o"></i> Room:</b> {{overTime.Room.Name | uppercase}} </p>
+                <p><b><i class="fa fa-clock-o"></i> Start Time:</b> {{overTime.From}} HRS</p>
+                <p><b><i class="fa fa-clock-o"></i> End Time:</b> {{overTime.To}} HRS</p>
+                <p><b class="themesecondary"><i class="fa fa-user"></i> Over Time Request (HH.MM):</b> {{overTime.OverTimeData}} HRS</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button ng-show="overTime.ApprovalStatus == 'Pending'" type="button" class="btn themesecondary bordered-themesecondary" ng-click="decline()">Decline</button>
+    <button ng-show="overTime.ApprovalStatus == 'Pending'" type="button" class="btn themeprimary bordered-themeprimary" ng-click="approve()">Approve</button>
+</div>

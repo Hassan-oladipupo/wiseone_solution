@@ -1,0 +1,135 @@
+﻿.flexi-header {
+    margin-top: 6px !important;
+}
+
+.flexi-header small {
+    font-family: Calibri;
+}
+
+.text {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 12px;
+}
+
+.flexi-profile-icon {
+    color: white;
+}
+
+.dt-rows {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 14px;
+}
+
+.dt-icon {
+    font-size: 1.6em;
+    cursor: pointer;
+}
+
+input.ng-invalid {
+    border: 1px solid red;
+}
+
+input.ng-valid {
+    border: 1px solid green;
+}
+
+select.ng-invalid {
+    border: 1px solid red;
+}
+
+select.ng-valid {
+    border: 1px solid green;
+}
+
+.image-holder {
+    border: 1px solid grey;
+    margin-top: 20px;
+    box-shadow: 3px 3px 1px #ccc;
+    -webkit-box-shadow: 3px 3px 1px #ccc;
+    -moz-box-shadow: 3px 3px 1px #ccc;
+}
+
+.image-icon {
+    width: 30px;
+    height: 20px;
+}
+
+.login-footer-text {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    float: right;
+    margin-top: 20px;
+}
+
+.login-header-text {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    padding-top: 30px;
+}
+
+.image-handler {
+    background-color: white;
+    height: 100px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    width: 100px;
+    display: block;
+    box-shadow: 2px 2px 1px black;
+    display: inline;
+}
+
+.image-icon {
+    background-color: white;
+    height: 50px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    width: 50px;
+    display: block;
+    box-shadow: 2px 2px 1px black;
+    display: inline;
+}
+
+.smallText {
+    font-size: 10px !important;
+}
+
+.leaveDay {
+    width: 14.29% !important;
+}
+
+.profile_icon {
+    -webkit-border-radius: 10px;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 10px;
+    -moz-background-clip: padding;
+    border-radius: 10px;
+    background-clip: padding-box;
+    -webkit-box-shadow: 2px 2px 1px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 2px 2px 1px rgba(0, 0, 0, .2);
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, .2);
+    width: 75px;
+    height: 75px;
+    margin-top: 21px;
+    margin-left: 5px;
+}
+
+.overflow {
+    overflow-x: auto;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.col-30 {
+    width: 30%;
+}
+
+.col-30 {
+    width: 20%;
+}
+
+.col-100 {
+    width: 20%;
+}

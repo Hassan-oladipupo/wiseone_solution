@@ -1,0 +1,122 @@
+<div class="modal-header bg-themeprimary flexi-profile-icon">
+    <i class="fa fa-plus-square-o"></i> Add New Notification Rule
+</div>
+<div class="modal-body">
+    <div>
+        <div>
+            <h5 class="row-title before-themeprimary">Specify request type & requesting staff role</h5>
+            <div class="well well-lg col-lg-12">
+                <div id="horizontal-form">
+                    <form name="requestingForm">
+                        <div class="row">
+                            <div class="col-lg-5 col-sm-5 col-xs-12">
+                                <div class="form-group" ng-class="{ 'has-error' : requestingForm.requestingRole.$invalid && !requestingForm.requestingRole.$pristine }">
+                                    <label>Requesting Staff Role*</label>
+                                    <select class="form-control" name="requestingRole" ng-options="option.Name for option in requestingRoles track by option.ID" ng-model="approverEmail.RequestingRole" required ng-disabled="!newConfiguration"> 
+                                        <option value="">Select Role</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-sm-1 col-xs-12">
+                                &nbsp;
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-xs-12">
+                                <div class="form-group" ng-class="{ 'has-error' : requestingForm.approvalType.$invalid && !requestingForm.approvalType.$pristine }">
+                                    <label>Request Type*</label>
+                                    <select class="form-control" name="approvalType" ng-model="approverEmail.ApprovalType" required ng-disabled="!newConfiguration">
+                                        <option value="">Select Type</option>
+                                        <option value="StaffSignUp">STAFF SIGN UP</option> 
+                                        <option value="CancelShift">CANCEL SHIFT</option>        
+                                        <option value="ShiftSwap">SHIFT SWAP</option>
+                                        <option value="ApproveLeave">APPROVE LEAVE</option>
+                                        <option value="CancelLeave">CANCEL LEAVE</option>
+                                        <option value="ShiftOverTime">SHIFT OVER TIME</option>             <option value="EndOfDayReport">END OF DAY REPORT</option>      
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h5 class="row-title before-themeprimary">Add staff roles that should be notified & their respective locations</h5>
+            <div class="well well-lg col-lg-12">
+                <div id="horizontal-form">
+                    <form name="approverForm">
+                        <div class="row">
+                            <div class="col-lg-5 col-sm-5 col-xs-12">
+                                <div class="form-group" ng-class="{ 'has-error' : approverForm.approvingRole.$invalid && !approverForm.approvingRole.$pristine }">
+                                    <label>Staff role that should be notified*</label>
+                                    <select class="form-control" name="approvingRole" ng-options="option.Name for option in approvingRoles track by option.ID" ng-model="selectedApprovingRole" required>
+                                        <option value="">Select Role</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-sm-1 col-xs-12">
+                                &nbsp;
+                            </div>
+                            <div class="col-lg-4 col-sm-4 col-xs-12">
+                                <div class="form-group" ng-class="{ 'has-error' : approverForm.approvingLocation.$invalid && !approverForm.approvingLocation.$pristine }">
+                                    <label>Staff location*</label>
+                                    <select class="form-control" name="approvingLocation" ng-options="option.Name for option in approvingLocationTypes" ng-model="selectedApprovingLocation" required>
+                                        <option value="">Select Location</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-2 col-xs-12">
+                                <div class="form-group" style="float:right;">
+                                    <label>&nbsp;</label><br>
+                                    <button type="button" class="btn btn-block themeprimary bordered-themeprimary" ng-disabled="requestingForm.$invalid ||approverForm.$invalid" ng-click="addConfiguration()"><i class="fa fa-plus-square"></i> Add</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th width="5%">#</th>
+                                                    <th width="40%">Notify Staff Role</th>
+                                                    <th width="40%">Staff Location</th>
+                                                    <th width="5%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-if="!approverEmail.ApprovingRoles.length">
+                                                    <td class="label-tags" colspan="4">
+                                                        <span class="label label-primary"><i class="fa fa-info-circle"> There are no staff roles and locations.</i></span>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="approverEmail.ApprovingRoles.length" ng-repeat="approvingRole in approverEmail.ApprovingRoles">
+                                                    <td class="text-center">
+                                                        {{$index+1}}
+                                                    </td>
+                                                    <td>
+                                                        <p>{{approvingRole.ApprovingRole.Name}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{approvingRole.ApprovingLocation.Name}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn themesecondary bordered-themesecondary" ng-click="deleteConfiguration(approvingRole.ApprovingRole)"><i class="fa fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button type="button" class="btn themeprimary bordered-themeprimary" ng-disabled="requestingForm.$invalid || approverEmail.ApprovingRoles.length == 0" ng-click="save()"><i class="fa fa-save"></i> Save</button>
+</div>

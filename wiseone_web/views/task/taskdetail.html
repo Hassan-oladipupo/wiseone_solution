@@ -1,0 +1,147 @@
+<div class="row" ng-controller="TaskDetailCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-pencil-square-o"></i> Task Detail</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption text-danger" ng-show="disabled===true;"> <i class="fa fa-spinner fa-spin"></i> loading assigned staff and task updates... </span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themesecondary bordered-themesecondary" ng-click="goBack()"><i class="fa fa-arrow-circle-left"></i></button>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <wizard indicators-position="top" edit-mode="true">
+                            <wz-step wz-title="Details">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <!-- SUBJECT -->
+                                        <div class="form-group">
+                                            <label><b>Subject: </b></label>
+                                            <label>{{task.Subject}}</label>
+                                        </div>
+
+                                        <!-- DETAILS -->
+                                        <div class="form-group">
+                                            <label><b>Details: </b></label>
+                                            <label>{{task.Details}}</label>
+                                        </div>
+
+                                        <!-- DETAILS -->
+                                        <div class="form-group">
+                                            <label><b>Date of completion: </b></label>
+                                            <label>{{dateOfCompletion}}</label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <br>
+                                            <h5 class="row-title before-themesecondary"><i class="fa fa-users themesecondary"></i>Staff Handing this Task</h5>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="15%">Task Leader</th>
+                                                            <th width="25%">Name</th>
+                                                            <th width="10%">Known As</th>
+                                                            <th width="25%">Role</th>
+                                                            <th width="25%">Location</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-if="!selectedStaff.length">
+                                                            <td class="label-tags" colspan="5">
+                                                                <span class="label label-primary"><i class="fa fa-info-circle"> Loading assigned staff.</i></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-if="selectedStaff.length" ng-repeat="staff in selectedStaff">
+                                                            <td class="text-center">
+                                                                <p ng-show="staff.TaskLeader"><i class="fa fa-check"></i></p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{staff.FirstName}} {{staff.MiddleName}} {{staff.Surname}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{staff.KnownAs}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{staff.Role.Name}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{staff.Location.Name}}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next>Next <i class="fa fa-angle-right"></i></button>
+
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                            <wz-step wz-title="Updates">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <!-- List of staffs -->
+                                        <div class="form-group">
+                                            <br>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="20%">Reported By</th>
+                                                            <th width="20%">Reported On</th>
+                                                            <th width="50%">Update</th>
+                                                            <th width="10%">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-if="!taskUpdates.length">
+                                                            <td class="label-tags" colspan="4">
+                                                                <span class="label label-primary"><i class="fa fa-info-circle"> There are no updates currently for this task.</i></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-if="taskUpdates.length" ng-repeat="update in taskUpdates">
+                                                            <td>
+                                                                <p>{{update.ReportedBy}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{update.ReportedOn}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{update.Update}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{update.Status}}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-default themesecondary bordered-themesecondary" wz-previous><i class="fa fa-angle-left"></i> Previous</button>
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                        </wizard>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

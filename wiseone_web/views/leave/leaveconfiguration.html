@@ -1,0 +1,209 @@
+<div class="row" ng-controller="CreateShiftCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-wrench"></i> Leave Configuration</h5>
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption text-danger" ng-show="disabled===true;"> <i class="fa fa-spinner fa-spin"></i> loading locations... </span>
+                        <div class="widget-buttons">
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themesecondary bordered-themesecondary" ng-click="clear()">clear settings</button>
+                        </div>
+                        <!--Widget Buttons-->
+                    </div>
+                    <div class="widget-body ">
+                        <div id="horizontal-form">
+                            <form>
+                                <div class="form-group">
+                                    <label>Financial Year Date Range*</label>
+                                    <input date-range-picker id="daterange4" name="daterange4" class="form-control date-picker" type="text" ng-model="financialYear" options="financialYear.opts" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Location*</label>
+                                    <select class="form-control" ng-options="option.Name for option in Locations" ng-model="financialYear.Location" required>
+                                            <option value="">Select Location</option>
+                                        </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-gear"></i>
+                        <span class="widget-caption">Configuration</span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <!--Widget Buttons-->
+                    </div>
+                    <div class="widget-body">
+                        <wizard indicators-position="top" edit-mode="true">
+                            <wz-step wz-title="Leave Global Configuration">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Prior Notice of Leave (Number of Weeks)*</label>
+                                            <input type="number" class="form-control" ng-model="financialYear.LeavePriorNotice" placeholder="Prior Notice of Leave">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Exclude Month(s)*</label>
+                                            <tags-input ng-model="financialYear.excludeMonths" placeholder="Type in months to exclude.">
+                                                <auto-complete source="getMonths($query)" min-length="1"></auto-complete>
+                                            </tags-input>
+                                        </div>
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next="removeExcludeMonths()">Next <i class="fa fa-angle-right"></i></button>
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                            <wz-step wz-title="Bank Holiday Configuration">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Select Month to configure bank holiday</label>
+                                            <select class="form-control" name="role" ng-options="option.Label for option in financialYear.months track by option.Label" ng-model="financialYear.selectedMonth">
+                                                
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="info"><b><i class="fa fa-info-circle"></i> Selected Month:</b> {{financialYear.selectedMonth.Label}}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <table class="table table-hover table-striped table-bordered table-condensed text-center">
+                                                <tbody>
+                                                    <tr ng-repeat="day in financialYear.selectedMonth.Days" ng-if="$index%7==0">
+                                                        <td class="leaveDay" ng-if="$index <  financialYear.selectedMonth.Days.length">
+                                                            <p class="blue">{{financialYear.selectedMonth.Days[$index].Name}}</p>
+                                                            <p>{{financialYear.selectedMonth.Days[$index].Day}}</p>
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" ng-model="financialYear.selectedMonth.Days[$index].BankHoliday" ng-disabled="!financialYear.selectedMonth.Days[$index].Available">
+                                                                    <span class="text"></span>
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+1 <  financialYear.selectedMonth.Days.length">
+                                                            <p class="blue">{{financialYear.selectedMonth.Days[$index+1].Name}}</p>
+                                                            <p>{{financialYear.selectedMonth.Days[$index+1].Day}}</p>
+                                                            <label>
+                                                                <input type="checkbox" ng-model="financialYear.selectedMonth.Days[$index+1].BankHoliday"
+                                                                ng-disabled="!financialYear.selectedMonth.Days[$index+1].Available">
+                                                                <span class="text"></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+2 <  financialYear.selectedMonth.Days.length">
+                                                            <p class="blue">{{financialYear.selectedMonth.Days[$index+2].Name}}</p>
+                                                            <p> {{financialYear.selectedMonth.Days[$index+2].Day}}</p>
+                                                            <label>
+                                                                <input type="checkbox" ng-model="financialYear.selectedMonth.Days[$index+2].BankHoliday"
+                                                                ng-disabled="!financialYear.selectedMonth.Days[$index+2].Available">
+                                                                <span class="text"></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+3 <  financialYear.selectedMonth.Days.length">
+                                                            <p class="blue">{{financialYear.selectedMonth.Days[$index+3].Name}}</p>
+                                                            <p>{{financialYear.selectedMonth.Days[$index+3].Day}}</p>
+                                                            <label>
+                                                                <input type="checkbox" ng-model="financialYear.selectedMonth.Days[$index+3].BankHoliday"
+                                                                ng-disabled="!financialYear.selectedMonth.Days[$index+3].Available">
+                                                                <span class="text"></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+4 <  financialYear.selectedMonth.Days.length">
+                                                            <p class="blue">{{financialYear.selectedMonth.Days[$index+4].Name}}</p>
+                                                            <p>{{financialYear.selectedMonth.Days[$index+4].Day}}</p>
+                                                            <label>
+                                                                <input type="checkbox" ng-model="financialYear.selectedMonth.Days[$index+4].BankHoliday"
+                                                                ng-disabled="!financialYear.selectedMonth.Days[$index+4].Available">
+                                                                <span class="text"></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+5 <  financialYear.selectedMonth.Days.length">
+                                                            <p class="blue">{{financialYear.selectedMonth.Days[$index+5].Name}}</p>
+                                                            <p>{{financialYear.selectedMonth.Days[$index+5].Day}}</p>
+                                                            <label>
+                                                                <input type="checkbox" ng-model="financialYear.selectedMonth.Days[$index+5].BankHoliday"
+                                                                ng-disabled="!financialYear.selectedMonth.Days[$index+5].Available">
+                                                                <span class="text"></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+6 <  financialYear.selectedMonth.Days.length">
+                                                            <p class="blue">{{financialYear.selectedMonth.Days[$index+6].Name}}</p>
+                                                            <p>{{financialYear.selectedMonth.Days[$index+6].Day}}</p>
+                                                            <label>
+                                                                <input type="checkbox" ng-model="financialYear.selectedMonth.Days[$index+6].BankHoliday"
+                                                                ng-disabled="!financialYear.selectedMonth.Days[$index+6].Available">
+                                                                <span class="text"></span>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <button type="button" class="btn btn-default themesecondary bordered-themesecondary" wz-previous><i class="fa fa-angle-left"></i> Previous</button>
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next="showEntries()">Next <i class="fa fa-angle-right"></i></button>
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                            <wz-step wz-title="Confirm Configuration">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <p><b class="themeprimary"><i class="fa fa-info-circle"></i> Confirm the following settings you have configured. If they are correct, you can go ahead and save the settings.</b> </p>
+                                        <p><b><i class="fa fa-calendar"></i> Financial Date Range: </b> {{dateRange}}</p>
+                                        <p><b>Location:</b> {{financialYear.Location.Name}}</p>
+                                        <p><b>Leave Prior Notice:</b> {{financialYear.LeavePriorNotice}} weeks</p>
+                                        <p><b>Months Excluded:</b>
+                                            <span ng-if="!financialYear.excludeMonths.length">
+                                                No months excluded.
+                                            </span>
+                                            <ul ng-if="financialYear.excludeMonths.length" ng-repeat="month in financialYear.excludeMonths">
+                                                <li>{{month.text}}</li>
+                                            </ul>
+                                        </p>
+                                        <p><b>Bank Holidays:</b>
+                                            <span ng-if="!bankHolidays.length">
+                                                    No bank holidays configured.
+                                                </span>
+                                            <ul ng-if="bankHolidays.length" ng-repeat="day in bankHolidays">
+                                                <li>{{day}}</li>
+                                            </ul>
+                                        </p>
+
+                                        <button type="button" class="btn btn-default themesecondary bordered-themesecondary" wz-previous><i class="fa fa-angle-left"></i> Previous</button>
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" ng-click="save()" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000"><i class="fa fa-save"></i></button>
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                        </wizard>
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

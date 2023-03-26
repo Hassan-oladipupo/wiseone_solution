@@ -1,0 +1,29 @@
+<toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+<div class="login-container animated fadeInDown" ng-controller="LoginCtrl">
+    <div class="loginbox bg-white">
+        <div class="login-header-text themesecondary"><i class="fa fa-sign-in"></i> SIGN IN</div>
+
+        <div class="loginbox-or">
+            <div class="or-line"></div>
+            <div class="or">&nbsp;</div>
+        </div>
+        <form name="passwordForm" ng-submit="login()" novalidate>
+            <div class="loginbox-textbox" ng-class="{ 'has-error' : passwordForm.username.$invalid && !passwordForm.username.$pristine }">
+                <input type="text" class="form-control" name="username" placeholder="Username" ng-model="password.Username" required autofocus autocomplete="off" />
+            </div>
+            <div class="loginbox-textbox" ng-class="{ 'has-error' : passwordForm.password.$invalid && !passwordForm.password.$pristine }">
+                <input type="password" class="form-control" name="password" placeholder="Password" ng-model="password.Password" required autocomplete="off" />
+            </div>
+            <div class="loginbox-forgot">
+                <a ui-sref="forgotpassword">Forgot Password?</a>
+            </div>
+            <div class="loginbox-submit">
+                <button type="submit" ng-disabled="!passwordForm.$valid" ladda="loading" data-style="expand-left" class="btn btn-primary btn-block"><i class="fa fa-sign-in"></i></button>
+            </div>
+        </form>
+    </div>
+    <div class="logobox">
+        <a ng-if="iOS === true" href="itms-services://?action=download-manifest&url=https://wise1ne.com/mobile/manifest.plist" style="float: left;" class="login-footer-text themeprimary"><i class="fa fa-download"></i> Install iOS Wise1ne App</a>
+        <em class="login-footer-text themesecondary"> Wise1ne</em>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+<div class="modal-header bg-themeprimary flexi-profile-icon">
+    <i class="fa fa-check-square-o"></i> Approve or Decline Leave Request
+</div>
+<div class="modal-body">
+    <div>
+        <div>
+            <h5 class="row-title before-themeprimary"><i class="fa fa-user themeprimary"></i>{{leave.LeaveRequest.StaffKnownAs}} [{{leave.LeaveRequest.StaffName}}]</h5>
+            <div class="well well-lg col-lg-12">
+                <div id="horizontal-form">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-5 col-sm-5 col-xs-5">
+                                <h5 class="row-title before-themeprimary"><i class="fa fa-list"></i>Leave Request Details</h5>
+                                <p><b class="themeprimary"><i class="fa fa-tags" aria-hidden="true"></i> Leave Type Requested:</b> {{leave.LeaveRequest.LeaveTypeDescription}}
+                                </p>
+                                <p><b class="themeprimary"><i class="fa fa-question-circle" aria-hidden="true"></i> Is Leave Deductible:</b>
+                                    <span ng-if="leave.LeaveRequest.LeaveIsDeductible">Yes</span>
+                                    <span ng-if="!leave.LeaveRequest.LeaveIsDeductible">No</span>
+                                </p>
+                                <p><b class="themeprimary"><i class="fa fa-list-ol"></i> Number of Days Requested:</b> {{leave.LeaveRequest.LeaveDaysTaken}} ({{leave.LeaveRequest.LeaveDayDescription}})</p>
+                                <p><b class="themeprimary"><i class="fa fa-calendar"></i> Days Requested</b> </p>
+                                <p ng-repeat="day in leave.LeaveRequest.RequestedDays">
+                                    {{day.Name}} {{day.Day}} {{day.Month}}, {{day.Year}}
+                                </p>
+                            </div>
+                            <div class="col-lg-1 col-sm-1 col-xs-1">
+                                &nbsp;
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-xs-6">
+                                <div ng-if="!financialYearFetched">
+                                    <i class="fa fa-spinner fa-spin themeprimary"></i> <span class="themeprimary"> {{info}}</span>
+                                </div>
+                                <div ng-if="financialYearFetched">
+                                    <p><b>Financial Year:</b> {{financialYear.StartDate}} - {{financialYear.EndDate}} </p>
+                                </div>
+                                <div ng-if="financialYearFetched && !leaveDetailsFetched">
+                                    <i class="fa fa-spinner fa-spin themeprimary"></i> <span class="themeprimary"> Loading staff leave details</span>
+                                </div>
+                                <div ng-if="financialYearFetched && leaveDetailsFetched">
+                                    <h5 class="row-title before-themeprimary"><i class="fa fa-info-circle"></i> Staff Leave Summary</b>
+                                    </h5>
+                                    <p><b>Entitled Total Leave Days:</b> {{staffLeave.NumberOfLeaveDays}} days</p>
+                                    <p><b>Compulsory/Bank Holidays:</b> {{staffLeave.BankHolidays.length}} days</p>
+                                    <p><b>Total Deductible Days Available to Take Leave:</b> {{staffLeave.NumberOfLeaveDays- staffLeave.BankHolidays.length}} days</p>
+                                    <p><b>Deductible Leave Days Approved:</b> {{staffLeave.NumberOfLeaveTaken}} days</p>
+                                    <p><b>Deductible Leave Days Awaiting Approval:</b> {{staffLeave.NumberOfPendingLeaveTaken}} days</p>
+                                    <p><b>Deductible Leave Days Remaining for Booking Leave:</b> {{staffLeave.NumberOfLeaveRemaining}} days</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div ng-if="financialYearFetched && leaveDetailsFetched">
+            <h5 class="row-title before-themeprimary"><i class="fa fa-calendar-o themeprimary"></i>Location Calender</h5>
+            <div class="form-group">
+                <select class="form-control" name="role" ng-options="option.Label for option in months track by option.Label" ng-model="selectedMonth">                    
+                </select>
+            </div>
+            <div class="form-group">
+                <table class="table table-hover table-striped table-bordered table-condensed text-center">
+                    <tbody>
+                        <tr ng-repeat="day in selectedMonth.Days" ng-if="$index%7==0">
+                            <td class="leaveDay" ng-if="$index <  selectedMonth.Days.length">
+                                <p class="blue">{{selectedMonth.Days[$index].Name}}</p>
+                                <p>{{selectedMonth.Days[$index].Day}}</p>
+                                <div ng-repeat="staff in selectedMonth.Days[$index].Staff">
+                                    <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                </div>
+                                <p ng-show="selectedMonth.Days[$index].BankHoliday">BH</p>
+                            </td>
+                            <td class="leaveDay" ng-if="$index+1 <  selectedMonth.Days.length">
+                                <p class="blue">{{selectedMonth.Days[$index+1].Name}}</p>
+                                <p>{{selectedMonth.Days[$index+1].Day}}</p>
+                                <div ng-repeat="staff in selectedMonth.Days[$index+1].Staff">
+                                    <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                </div>
+                                <p ng-show="selectedMonth.Days[$index+1].BankHoliday">BH</p>
+                            </td>
+                            <td class="leaveDay" ng-if="$index+2 <  selectedMonth.Days.length">
+                                <p class="blue">{{selectedMonth.Days[$index+2].Name}}</p>
+                                <p> {{selectedMonth.Days[$index+2].Day}}</p>
+                                <div ng-repeat="staff in selectedMonth.Days[$index+2].Staff">
+                                    <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                </div>
+                                <p ng-show="selectedMonth.Days[$index+2].BankHoliday">BH</p>
+                            </td>
+                            <td class="leaveDay" ng-if="$index+3 <  selectedMonth.Days.length">
+                                <p class="blue">{{selectedMonth.Days[$index+3].Name}}</p>
+                                <p>{{selectedMonth.Days[$index+3].Day}}</p>
+                                <div ng-repeat="staff in selectedMonth.Days[$index+3].Staff">
+                                    <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                </div>
+                                <p ng-show="selectedMonth.Days[$index+3].BankHoliday">BH</p>
+                            </td>
+                            <td class="leaveDay" ng-if="$index+4 <  selectedMonth.Days.length">
+                                <p class="blue">{{selectedMonth.Days[$index+4].Name}}</p>
+                                <p>{{selectedMonth.Days[$index+4].Day}}</p>
+                                <div ng-repeat="staff  in selectedMonth.Days[$index+4].Staff">
+                                    <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                </div>
+                                <p ng-show="selectedMonth.Days[$index+4].BankHoliday">BH</p>
+                            </td>
+                            <td class="leaveDay" ng-if="$index+5 <  selectedMonth.Days.length">
+                                <p class="blue">{{selectedMonth.Days[$index+5].Name}}</p>
+                                <p>{{selectedMonth.Days[$index+5].Day}}</p>
+                                <div ng-repeat="staff in selectedMonth.Days[$index+5].Staff">
+                                    <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                </div>
+                                <p ng-show="selectedMonth.Days[$index+5].BankHoliday">BH</p>
+                            </td>
+                            <td class="leaveDay" ng-if="$index+6 <  selectedMonth.Days.length">
+                                <p class="blue">{{selectedMonth.Days[$index+6].Name}}</p>
+                                <p>{{selectedMonth.Days[$index+6].Day}}</p>
+                                <div ng-repeat="staff in selectedMonth.Days[$index+6].Staff">
+                                    <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                </div>
+                                <p ng-show="selectedMonth.Days[$index+6].BankHoliday">BH</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h5 class="row-title before-themeprimary"><i class="fa fa-check-square-o themeprimary"></i>Approval</h5>
+                <div class="well well-lg">
+                    <div id="horizontal-form">
+                        <form>
+                            <div class="form-group">
+                                <label>Approval Type</label>
+                                <select class="form-control" ng-model="approvalType" ng-change="setApproval(approvalType)">
+                                        <option value="">Select option</option>
+                                        <option value="Approve">Approve</option>
+                                        <option value="Decline">Decline</option>
+                                    </select>
+                            </div>
+                            <div class="form-group" ng-if="showDeclineReason == true">
+                                <label>Decline Reason</label>
+                                <select class="form-control" ng-model="declineReason" ng-change="setDeclineReason(declineReason)">
+                                        <option value="">Select a reason</option>
+                                        <option value="Duplicate request">Duplicate request</option>
+                                        <option value="Business needs cannot accommodate request">Business needs cannot accommodate request</option>
+                                        <option value="Other staff already booked">Other staff already booked</option>
+                                        <option value="Limited number of Coaches within WMB group (for Mgt)">Limited number of Coaches within WMB group (for Mgt)</option>
+                                        <option value="Leave accumulated not enough to cover leave requested">Leave accumulated not enough to cover leave requested</option>
+                                        <option value="Leave not allowed during core registration periods">Leave not allowed during core registration periods</option>
+                                        <option value="Other reasons">Other reasons</option>
+                                    </select>
+                            </div>
+                            <div class="form-group" ng-if="showDeclineReasonText == true">
+                                <label>Reason</label>
+                                <input type="text" class="form-control" ng-model="leave.LeaveRequest.DeclineReason" placeholder="Enter Reason">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button ng-if="leave.Approval.ApprovalStatus == 'Pending' && approvalType == 'Approve'" type="button" class="btn themeprimary bordered-themeprimary" ng-click="approve()"><i class="fa fa-save"></i> {{approvalType}}</button>
+    <button ng-if="leave.Approval.ApprovalStatus == 'Pending' && approvalType == 'Decline'" type="button" class="btn themesecondary bordered-themesecondary" ng-disabled="leave.LeaveRequest.DeclineReason == ''" ng-click="decline()"><i class="fa fa-save"></i> {{approvalType}}</button>
+</div>

@@ -1,0 +1,30 @@
+<div class="modal-header bg-themeprimary flexi-profile-icon">
+    <i class="fa fa-plus-square-o"></i> Add New Approver
+</div>
+<div class="modal-body">
+    <div>
+        <div>
+            <h5 class="row-title before-themeprimary">Select Approver Role</h5>
+            <div class="well well-lg col-lg-12">
+                <div id="horizontal-form">
+                    <form name="approverForm">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="form-group" ng-class="{ 'has-error' : approverForm.approverRole.$invalid && !approverForm.approverRole.$pristine }">
+                                    <label>Approver Role*</label>
+                                    <select class="form-control" name="approverRole" ng-options="option.Name for option in approverRoles track by option.ID" ng-model="approverEmail.ApproverRole" required> 
+                                        <option value="">Select Role</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button type="button" class="btn themeprimary bordered-themeprimary" ng-disabled="approverForm.$invalid" ng-click="save()"><i class="fa fa-save"></i> Save</button>
+</div>

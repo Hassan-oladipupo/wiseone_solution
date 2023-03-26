@@ -1,0 +1,216 @@
+﻿<div ng-controller="DashboardCtrl">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+
+            <!--Function Management
+
+            <div class="col-lg-4 col-sm-4 col-xs-12">
+                <div class="well bordered-left  bordered-themeprimary">
+                    <h5><i class="menu-icon glyphicon glyphicon-tags themesecondary"></i> <span class="themeprimary"> Function Management</span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.addfunction" class="themeprimary" tooltip="Add Function"><i class="fa fa-plus-square fa-2x"></i></a>
+                        <a ui-sref="app.updatefunction" class="themeprimary" tooltip="Edit Function"><i class="fa fa-edit fa-2x"></i></a>
+                        <a ui-sref="app.viewfunction" class="themeprimary" tooltip="View Function"><i class="fa fa-list fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>-->
+
+            <!--Role Management-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="ROLE">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-tags themesecondary"></i> <span class="themeprimary"> <b>Role Management</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.addrole" class="underline submodule" data-app-submodule="CREATE">Add Role</a><br>
+                        <a ui-sref="app.updaterole" class="underline submodule" data-app-submodule="UPDATE">Edit Role</a><br>
+                        <a ui-sref="app.enableordisablerole" class="underline submodule" data-app-submodule="ENABLEORDISABLE">Enable or Disable Role</a><br>
+                        <a ui-sref="app.viewrole" class="underline submodule" data-app-submodule="VIEW">View Roles</a>
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <!--Location Management-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="LOCATION">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-home themesecondary"></i> <span class="themeprimary"> <b>Location Management</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.addlocation" class="underline submodule" data-app-submodule="CREATE">Add Location</a><br>
+                        <a ui-sref="app.updatelocation" class="underline submodule" data-app-submodule="UPDATE">Edit Location</a><br>
+                        <a ui-sref="app.enableordisablelocation" class="underline submodule" data-app-submodule="ENABLEORDISABLE">Enable or Disable Location</a><br>
+                        <a ui-sref="app.viewlocation" class="underline submodule" data-app-submodule="VIEW">View Locations</a>
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <!--Class Room Management-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="CLASSROOM">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-gift themesecondary"></i> <span class="themeprimary"> <b>Room Management</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.addclassroom" class="underline submodule" data-app-submodule="CREATE">Add Room</a><br>
+                        <a ui-sref="app.updateclassroom" class="underline submodule" data-app-submodule="UPDATE">Edit Room</a><br>
+                        <a ui-sref="app.enableordisableclassroom" class="underline submodule" data-app-submodule="ENABLEORDISABLE">Enable or Disable Room</a><br>
+                        <a ui-sref="app.viewclassroom" class="underline submodule" data-app-submodule="VIEW">View Room</a>
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <!--Staff Management-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="STAFF">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-user themesecondary"></i> <span class="themeprimary"> <b>Staff Management</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.approvestaffsignup" class="underline submodule" data-app-submodule="APPROVE">Approve Staff Sign Up</a><br>
+                        <a ui-sref="app.updatestaff" class="underline submodule" data-app-submodule="UPDATE">Edit Staff</a><br>
+                        <a ui-sref="app.enableordisablestaff" class="underline submodule" data-app-submodule="ENABLEORDISABLE">Enable or Disable Staff</a><br>
+                        <a ui-sref="app.viewstaff" class="underline submodule" data-app-submodule="VIEW">View Staff</a>
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <!--Shift Management-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="SHIFT">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-calendar themesecondary"></i> <span class="themeprimary"> <b>Shift Management</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.createshift" class="underline submodule" data-app-submodule="CREATE">Create Shift</a><br>
+                        <a ui-sref="app.updateshift" class="underline submodule" data-app-submodule="UPDATE">Update Shift</a><br>
+                        <a ui-sref="app.viewshift" class="underline submodule" data-app-submodule="VIEW">View Shift</a><br>
+                        <a ui-sref="app.approveshiftswap" class="underline submodule" tooltip="Approve Shift Swap" data-app-submodule="APPROVE">Approve Shift Swap</a><br>
+                        <a ui-sref="app.approveovertime" class="underline submodule" data-app-submodule="ASSIGN">Approve Over Time</a><br>
+                        <a ui-sref="app.cancelshift" class="underline submodule" data-app-submodule="DELETE">Cancel Shift</a><br> &nbsp;<br> &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <!--Leave Management-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="LEAVE">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-book themesecondary"></i> <span class="themeprimary"> <b>Leave Management</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.leaveconfiguration" class="underline submodule" data-app-submodule="CONFIGURE">Yearly Leave Configuration</a><br>
+                        <a ui-sref="app.updateleavecalender" class="underline submodule" data-app-submodule="UPDATE">Update Leave Calendar</a><br>
+                        <a ui-sref="app.enableordisableleave" class="underline submodule" data-app-submodule="ENABLEORDISABLE">Enable or Disable Leave Calender</a><br>
+                        <a ui-sref="app.viewleavecalendar" class="underline submodule" data-app-submodule="VIEW">View Leave Calendar</a><br>
+                        <a ui-sref="app.cancelstaffleave" class="underline submodule" data-app-submodule="MANAGE">Manage Staff Leave</a><br>
+                        <a ui-sref="app.approveleave" class="underline submodule" data-app-submodule="APPROVE">Approve Leave Request</a><br>
+                        <a ui-sref="app.approvesecondlevel" class="underline submodule" data-app-submodule="APPROVESECONDLEVEL">Second Leave Approval</a><br>
+                        <a ui-sref="app.cancelleave" class="underline submodule" data-app-submodule="DELETE">Leave Cancellation</a>
+                    </div>
+                </div>
+            </div>
+
+            <!--Task Management-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="TASK">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-list-alt themesecondary"></i> <span class="themeprimary"> <b>Task Management</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.createtask" class="underline submodule" data-app-submodule="CREATE">Create Task</a><br>
+                        <a ui-sref="app.updatetask" class="underline submodule" data-app-submodule="UPDATE">Update Task</a><br>
+                        <a ui-sref="app.deletetask" class="underline submodule" data-app-submodule="DELETE">Delete Task</a><br>
+                        <a ui-sref="app.viewtask" class="underline submodule" data-app-submodule="VIEW">View Task</a>
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <!--Task Management-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="CLOCKIN">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-time themesecondary"></i> <span class="themeprimary"> <b>Clock In</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.viewclockin" class="underline submodule" data-app-submodule="VIEW">View Clock In</a><br>
+                        <a ui-sref="app.clockinmonitor" class="underline submodule" data-app-submodule="MONITOR">Clock In Monitor</a>
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <!--Approver Email-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="APPROVER EMAIL">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-cog themesecondary"></i> <span class="themeprimary"> <b>Notification Rules</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.configureemail" class="underline submodule" data-app-submodule="CONFIGURE">Set Up Rules for Notifications</a>
+                        <br>&nbsp;
+                        <br>&nbsp;
+                        <br>&nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <!--Report-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="REPORT">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-stats themesecondary"></i> <span class="themeprimary"> <b>Reports</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.viewreport" class="underline">Summary Report</a><br>
+                        <a ui-sref="app.staffreport" class="underline">Staff Reports</a>
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                    </div>
+                </div>
+            </div>
+
+            <!--Background Services-->
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12" data-app-module="BACKGROUND SERVICES">
+                <div class="well">
+                    <h5><i class="menu-icon glyphicon glyphicon-tasks themesecondary"></i> <span class="themeprimary"> <b>Background Services</b></span></h5>
+                    <hr />
+                    <div class="buttons-preview">
+                        <a ui-sref="app.services" class="underline submodule" data-app-submodule="VIEW">View Background Services</a>
+                        <br>&nbsp;
+                        <br>&nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                        <br> &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

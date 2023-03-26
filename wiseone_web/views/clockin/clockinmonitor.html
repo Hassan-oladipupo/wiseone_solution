@@ -1,0 +1,80 @@
+<div class="row" ng-controller="ClockInMonitorCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-eye"></i> Monitor</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption text-danger" ng-show="disabled===true;"> <i class="fa fa-spinner fa-spin"></i> loading locations... </span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <!-- Location -->
+                        <div class="form-group">
+                            <select class="form-control" ng-options="option.Name for option in Locations" ng-model="FeedLocation" ng-change="getFeeds()">
+                                <option value="">Select Location</option>
+                            </select>
+                        </div>
+
+                        <div ng-show="Processed">
+                            <div ng-hide="FeedExists">
+                                <span class="label label-info"><i class="fa fa-info-circle"> {{message}}</i></span>
+                            </div>
+                            <div class="row" ng-show="FeedExists">
+                                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" ng-repeat="feed in LatestFeeds">
+                                    <div class="">
+                                        <div class="databox databox-xlg databox-graded">
+                                            <div class="databox-left no-padding bg-white">
+                                                <img ng-src="{{feed.StaffPicture}}" class="profile_icon">
+                                            </div>
+                                            <div class="databox-right bg-white">
+                                                <div ng-if="feed.ClockedIn==false && feed.Absent==false" class="databox-stat danger radius-bordered">
+                                                    <i class="stat-icon glyphicon glyphicon-warning-sign"></i>
+                                                </div>
+
+                                                <div ng-if="feed.ClockedIn==false && feed.Absent==true" class="databox-stat warning radius-bordered">
+                                                    <i class="stat-icon glyphicon glyphicon-warning-sign"></i>
+                                                </div>
+
+                                                <div ng-if="feed.ClockedIn==true" class="databox-stat success radius-bordered">
+                                                    <i class="stat-icon glyphicon glyphicon-check"></i>
+                                                </div>
+
+                                                <div ng-if="feed.ClockedIn==true && feed.ClockedOut==true" class="databox-stat primary radius-bordered">
+                                                    <i class="stat-icon glyphicon glyphicon-check"></i>
+                                                </div>
+
+                                                <div class="databox-text themeprimary"><b><i class="fa fa-user"></i> {{feed.StaffName}}</b>
+                                                </div>
+                                                <div class="databox-text themeprimary"><i class="fa fa-building"></i> {{feed.RoomName}}</div>
+                                                <div>
+                                                    <div class="databox-text themeprimary"><i class="fa fa-clock-o"></i> Shift Start Time: {{feed.From}} HRS </div>
+                                                    <div class="databox-text themeprimary"><i class="fa fa-clock-o"></i> Clock In Time: {{feed.ClockedInTime}} HRS </div>
+                                                </div>
+                                                <div>
+                                                    <div class="databox-text themeprimary"><i class="fa fa-clock-o"></i> Shift End time: {{feed.To}} HRS</div>
+                                                    <div class="databox-text themeprimary"><i class="fa fa-clock-o"></i> Clock Out time: {{feed.ClockedOutTime}} HRS</div>
+                                                </div>
+                                                <div ng-if="feed.ClockedIn==false && !feed.Absent" class="databox-text smallText"><span class="label label-red"><i class="fa fa-warning"> Yet to Clock In</i></span></div>
+
+                                                <div ng-if="feed.ClockedIn==false && feed.Absent" class="databox-text smallText"><span class="label label-warning"><i class="fa fa-info-circle"> Absent</i></span></div>
+
+                                                <div ng-if="feed.ClockedIn==true && !feed.ClockedOut==true" class="databox-text smallText"><span class="label label-success"><i class="fa fa-check"> Clocked In</i></span></div>
+
+                                                <div ng-if="feed.ClockedIn==true && feed.ClockedOut==true" class="databox-text smallText"><span class="label label-primary"><i class="fa fa-check"> Clocked Out</i></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

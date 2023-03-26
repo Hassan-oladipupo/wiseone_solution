@@ -1,0 +1,336 @@
+﻿<!-- Sidebar Menu -->
+<ul class="nav sidebar-menu" ng-controller="SideBarCtrl">
+    <!--Dashboard-->
+    <li ui-sref-active="active">
+        <a ui-sref="app.dashboard">
+            <i class="menu-icon glyphicon glyphicon-th themesecondary"></i>
+            <span class="menu-text themeprimary"> Dashboard </span>
+        </a>
+    </li>
+
+    <!--Function Management
+
+    <li>
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon fa fa-tags"></i>
+            <span class="menu-text"> Function Management </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li ui-sref-active="active">
+                <a ui-sref="app.addfunction">
+                    <span class="menu-text">Add Function</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.updatefunction">
+                    <span class="menu-text">Edit Function</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.viewfunction">
+                    <span class="menu-text">View Function</span>
+                </a>
+            </li>
+        </ul>
+    </li>-->
+
+    <!--Role Management-->
+    <li data-app-module="ROLE">
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon glyphicon glyphicon-tags themesecondary"></i>
+            <span class="menu-text themeprimary"> Role Management </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li ui-sref-active="active" class="submodule" data-app-submodule="CREATE">
+                <a ui-sref="app.addrole">
+                    <span class="menu-text">Add Role</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="UPDATE">
+                <a ui-sref="app.updaterole">
+                    <span class="menu-text">Edit Role</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="ENABLEORDISABLE">
+                <a ui-sref="app.enableordisablerole">
+                    <span class="menu-text">Enable or Disable Role</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="VIEW">
+                <a ui-sref="app.viewrole">
+                    <span class="menu-text">View Role</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!--Location Management-->
+    <li data-app-module="LOCATION">
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon glyphicon glyphicon-home themesecondary"></i>
+            <span class="menu-text themeprimary"> Location Management </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li ui-sref-active="active" class="submodule" data-app-submodule="CREATE">
+                <a ui-sref="app.addlocation">
+                    <span class="menu-text">Add Location</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="UPDATE">
+                <a ui-sref="app.updatelocation">
+                    <span class="menu-text">Edit Location</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="ENABLEORDISABLE">
+                <a ui-sref="app.enableordisablelocation">
+                    <span class="menu-text">Enable or Disable Location</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="VIEW">
+                <a ui-sref="app.viewlocation">
+                    <span class="menu-text">View Location</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!--Class Room Management-->
+    <li data-app-module="CLASSROOM">
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon glyphicon glyphicon-gift themesecondary"></i>
+            <span class="menu-text themeprimary"> Room Management </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li ui-sref-active="active" class="submodule" data-app-submodule="CREATE">
+                <a ui-sref="app.addclassroom">
+                    <span class="menu-text">Add Room</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="UPDATE">
+                <a ui-sref="app.updateclassroom">
+                    <span class="menu-text">Edit Room</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="ENABLEORDISABLE">
+                <a ui-sref="app.enableordisableclassroom">
+                    <span class="menu-text">Enable or Disable Room</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="VIEW">
+                <a ui-sref="app.viewclassroom">
+                    <span class="menu-text">View Room</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!--User Management-->
+    <li data-app-module="STAFF">
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon glyphicon glyphicon-user themesecondary"></i>
+            <span class="menu-text themeprimary"> Staff Management </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li ui-sref-active="active" class="submodule" data-app-submodule="APPROVE">
+                <a ui-sref="app.approvestaffsignup">
+                    <span class="menu-text">Approve Staff Sign Up</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="UPDATE">
+                <a ui-sref="app.updatestaff">
+                    <span class="menu-text">Edit Staff</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="ENABLEORDISABLE">
+                <a ui-sref="app.enableordisablestaff">
+                    <span class="menu-text">Enable or Disable Staff</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="VIEW">
+                <a ui-sref="app.viewstaff">
+                    <span class="menu-text">View Staff</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!--Shift Management-->
+    <li data-app-module="SHIFT">
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon glyphicon glyphicon-calendar themesecondary"></i>
+            <span class="menu-text themeprimary"> Shift Management </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li ui-sref-active="active" class="submodule" data-app-submodule="CREATE">
+                <a ui-sref="app.createshift">
+                    <span class="menu-text">Create Shift</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="UPDATE">
+                <a ui-sref="app.updateshift">
+                    <span class="menu-text">Update Shift</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="VIEW">
+                <a ui-sref="app.viewshift">
+                    <span class="menu-text">View Shift</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="APPROVE">
+                <a ui-sref="app.approveshiftswap">
+                    <span class="menu-text">Approve Shift Swap</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="ASSIGN">
+                <a ui-sref="app.approveovertime">
+                    <span class="menu-text">Approve Over Time</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="DELETE">
+                <a ui-sref="app.cancelshift">
+                    <span class="menu-text">Cancel Shift</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!--Leave Management-->
+    <li data-app-module="LEAVE">
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon glyphicon glyphicon-book themesecondary"></i>
+            <span class="menu-text themeprimary"> Leave Management </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li ui-sref-active="active" class="submodule" data-app-submodule="CONFIGURE">
+                <a ui-sref="app.leaveconfiguration">
+                    <span class="menu-text">Yearly Leave Configuration</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="UPDATE">
+                <a ui-sref="app.updateleavecalender">
+                    <span class="menu-text">Update Leave Calendar</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="ENABLEORDISABLE">
+                <a ui-sref="app.enableordisableleave">
+                    <span class="menu-text">Enable or Disable</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="VIEW">
+                <a ui-sref="app.viewleavecalendar">
+                    <span class="menu-text">View Leave Calendar</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="MANAGE">
+                <a ui-sref="app.cancelstaffleave">
+                    <span class="menu-text">Manage Staff Leave</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="APPROVE">
+                <a ui-sref="app.approveleave">
+                    <span class="menu-text">Approve Leave Request</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="APPROVESECONDLEVEL">
+                <a ui-sref="app.approvesecondlevel">
+                    <span class="menu-text">Second Leave Approval</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="DELETE">
+                <a ui-sref="app.cancelleave">
+                    <span class="menu-text">Leave Cancellation</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!--Task Management-->
+    <li data-app-module="TASK">
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon glyphicon glyphicon-list-alt themesecondary"></i>
+            <span class="menu-text themeprimary"> Task Management </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li ui-sref-active="active" class="submodule" data-app-submodule="CREATE">
+                <a ui-sref="app.createtask">
+                    <span class="menu-text">Create Task</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="UPDATE">
+                <a ui-sref="app.updatetask">
+                    <span class="menu-text">Update Task</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="DELETE">
+                <a ui-sref="app.deletetask">
+                    <span class="menu-text">Delete Task</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="VIEW">
+                <a ui-sref="app.viewtask">
+                    <span class="menu-text">View Task</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!--Clock In Management-->
+    <li data-app-module="CLOCKIN">
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon glyphicon glyphicon-time themesecondary"></i>
+            <span class="menu-text themeprimary"> Clock In </span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li ui-sref-active="active" class="submodule" data-app-submodule="VIEW">
+                <a ui-sref="app.viewclockin">
+                    <span class="menu-text">View Clock In</span>
+                </a>
+            </li>
+            <li ui-sref-active="active" class="submodule" data-app-submodule="MONITOR">
+                <a ui-sref="app.clockinmonitor">
+                    <span class="menu-text">Clock In Monitor</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!--APPROVER EMAIL-->
+    <li ui-sref-active="active" data-app-module="APPROVER EMAIL">
+        <a ui-sref="app.configureemail">
+            <i class="menu-icon glyphicon glyphicon-cog themesecondary"></i>
+            <span class="menu-text themeprimary"> Notification Rules</span>
+        </a>
+    </li>
+    <!--REPORT-->
+    <li data-app-module="REPORT">
+        <a href="#" class="menu-dropdown">
+            <i class="menu-icon glyphicon glyphicon-stats themesecondary"></i>
+            <span class="menu-text themeprimary"> Reports</span>
+            <i class="menu-expand"></i>
+        </a>
+        <ul class="submenu">
+            <li ui-sref-active="active">
+                <a ui-sref="app.viewreport">
+                    <span class="menu-text">View Report</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.staffreport">
+                    <span class="menu-text">Staff Report</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!--BACKGROUND SERVICES-->
+    <li ui-sref-active="active" data-app-module="BACKGROUND SERVICES">
+        <a ui-sref="app.services">
+            <i class="menu-icon glyphicon glyphicon-tasks themesecondary"></i>
+            <span class="menu-text themeprimary"> Background Services</span>
+        </a>
+    </li>
+</ul>
+<!-- /Sidebar Menu -->

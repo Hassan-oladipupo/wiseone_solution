@@ -1,0 +1,43 @@
+<div class="modal-header bg-themeprimary flexi-profile-icon">
+    <i class="fa fa-edit"></i> {{function.Name}}
+</div>
+<div class="modal-body">
+    <div id="horizontal-form">
+        <!-- NAME -->
+        <div class="form-group" ng-class="{ 'has-error' : functionForm.name.$invalid && !functionForm.name.$pristine }">
+            <label>Name*</label>
+            <input type="text" name="name" class="form-control" ng-model="function.Name" placeholder="Function Name" required capitalize>
+        </div>
+
+        <!-- TYPE -->
+        <div class="form-group" ng-class="{ 'has-error' : functionForm.type.$invalid && !functionForm.type.$pristine }">
+            <label>Type*</label>
+            <select class="form-control" name="type" ng-model="function.Type" required>
+                                        <option value="">Select Type</option>
+                                        <option value="ASSIGN">ASSIGN</option>
+                                        <option value="APPROVE">APPROVE</option>
+                                        <option value="APPROVESECONDLEVEL">APPROVE SECOND LEVEL</option>
+                                        <option value="CONFIGURE">CONFIGURE</option>
+                                        <option value="CREATE">CREATE</option>
+                                        <option value="DELETE">DELETE</option>
+                                        <option value="ENABLEORDISABLE">ENABLE OR DISABLE</option>
+                                        <option value="UPDATE">UPDATE</option>
+                                        <option value="VIEW">VIEW</option>
+                                        <option value="MONITOR">MONITOR</option>
+                                        <option value="MANAGE">MANAGE</option>
+                                    </select>
+        </div>
+
+        <!-- MODULE -->
+        <div class="form-group" ng-class="{ 'has-error' : functionForm.module.$invalid && !functionForm.module.$pristine }">
+            <label>Module*</label>
+            <select class="form-control" name="module" ng-options="option.label for option in Modules" ng-model="selectedModule" required>
+                                        <option value="">Select Module</option>                                        
+                                    </select>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()"><i class="fa fa-close"></i></button>
+    <button type="button" class="btn themeprimary bordered-themeprimary" ng-click="ok()"><i class="fa fa-save"></i></button>
+</div>

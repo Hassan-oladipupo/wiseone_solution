@@ -1,0 +1,182 @@
+<div class="row" ng-controller="StaffLeaveAnalyticsCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div id="exportthis" class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-list"></i> Staff Leave Analytics</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-list"></i>
+                        <span class="widget-caption"><b>Staff and Leave Details</b> </span>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themeprimary bordered-themeprimary" ng-click="export()"><i class="fa fa-print"></i> Print Report</button>
+                        </div>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themesecondary bordered-themesecondary" ng-click="goBack()"><i class="fa fa-arrow-circle-left"></i></button>
+                        </div>
+                        <!--Widget Buttons-->
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-xs-12" style="float: left;">
+                                    <h5 class="row-title before-themeprimary"><i class="fa fa-user"></i>Staff Details</h5>
+                                    <div class="form-group">
+                                        <b>Name:</b> {{staff.Name}}
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Staff ID:</b> {{staff.StaffID}}
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Role:</b> {{staff.Role.Name}}
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Location:</b> {{staff.Location.Name}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-sm-1 col-xs-12">
+                                    <h5>&nbsp;</h5>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ng-if="!financialYearFetched">
+                                                <i class="fa fa-spinner fa-spin themeprimary"></i> <span class="themeprimary"> {{info}}</span>
+                                            </div>
+                                            <div ng-if="financialYearFetched && !financialYearExists">
+                                                <i class="fa fa-warning themeprimary"></i> <span class="themeprimary"> {{info}}</span>
+                                            </div>
+                                            <div ng-if="financialYearFetched && financialYearExists">
+                                                <h5 class="row-title before-themeprimary"><i class="fa fa-calendar"></i>Leave Details for Financial Year</h5>
+                                                <select class="form-control" ng-options="option.Label for option in financialYears track by option.ID" ng-model="financialYear" ng-change="getStaffLeaves(financialYear)">                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ng-if="financialYearFetched && financialYearExists">
+                                                <div ng-if="!leaveDetailsFetched && financialYearExists">
+                                                    <i class="fa fa-spinner fa-spin themeprimary"></i> <span class="themeprimary"> {{leaveDetailsInfo}}</span>
+                                                </div>
+                                                <div ng-if="leaveDetailsFetched && financialYearExists">
+                                                    <p><b>Financial Year:</b> {{financialYear.StartDate}} - {{financialYear.EndDate}} </p>
+                                                    <p><b>Total Number of Leave Days Applicable:</b> {{staff.NumberOfLeaveDays}} </p>
+                                                    <p><b>Compulsory/Bank Holidays:</b> {{staffLeave.BankHolidays.length}} </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div ng-if="leaveDetailsFetched">
+                                        <h5 class="row-title before-themeprimary"><i class="fa fa-calendar"></i>Staff Leave Summary as at Date of Report</h5>
+                                        <div class="form-group">
+                                            <input date-range-picker id="daterange4" name="daterange4" class="form-control date-picker" type="text" ng-model="searchValue.dateRequested" options="searchValue.dateRequested.opts" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div ng-if="financialYearFetched && financialYearExists">
+                                        <div ng-if="leaveDetailsFetched && financialYearExists">
+                                            <div class="col-lg-6 col-sm-6 col-xs-12">
+                                                <p><b>Non Deductible Leave Days Approved:</b> {{numberOfNonLeaveTaken}} </p>
+                                                <p><b>Deductible Leave Days Approved:</b> {{numberOfLeaveTaken}} </p>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6 col-xs-12">
+                                                <p><b>Total Leave Days Approved:</b> {{numberOfLeaveTaken + numberOfNonLeaveTaken}} </p>
+                                                <p> <b>Deductible Leave Days Remaining for Booking Leave:</b> {{numberOfLeaveRemaining}} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="leaveDetailsFetched">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-pie-chart"></i>
+                        <span class="widget-caption"><b>Pie Chart</b> - showing the type of leave booked so far and their respective number of days</span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <div class="row">
+                                <div ng-if="staffLeave.StaffLeave.length == 0" class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p class="themeprimary"><i class="fa fa-info-circle themeprimary"></i> No approved booked leave found for {{staff.Name}}
+                                    </p>
+                                </div>
+                                <div class="my-chart col-lg-12 col-sm-12 col-xs-12" ng-if="staffLeave.StaffLeave.length > 0">
+                                    <!--  <pie-chart data="data" options="options"></pie-chart> -->
+                                    <!-- <linechart data="data" options="options"></linechart> -->
+                                    <nvd3 options="options" data="data"></nvd3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-pie-chart"></i>
+                        <span class="widget-caption"><b>Pie Chart</b> - showing the type of leave booked so far and the respective percentages of the days booked</span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <div class="row">
+                                <div ng-if="staffLeave.StaffLeave.length == 0" class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p class="themeprimary"><i class="fa fa-info-circle themeprimary"></i> No approved booked leave found for {{staff.Name}}
+                                    </p>
+                                </div>
+                                <div class="my-chart col-lg-12 col-sm-12 col-xs-12" ng-if="staffLeave.StaffLeave.length > 0">
+                                    <!--  <pie-chart data="dataPercentage" options="options"></pie-chart> -->
+                                    <nvd3 options="options" data="dataPercentage"></nvd3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-pie-chart"></i>
+                        <span class="widget-caption"><b>Pie Chart</b> - comparing the total number of deductible and non deductible leave days taken so far in percentage</span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <div class="row">
+                                <div ng-if="staffLeave.StaffLeave.length == 0" class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p class="themeprimary"><i class="fa fa-info-circle themeprimary"></i> No approved booked leave found for {{staff.Name}}
+                                    </p>
+                                </div>
+                                <div class="my-chart col-lg-12 col-sm-12 col-xs-12" ng-if="staffLeave.StaffLeave.length > 0">
+                                    <!-- <pie-chart data="dataCompare" options="options"></pie-chart> -->
+                                    <nvd3 options="options" data="dataCompare"></nvd3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

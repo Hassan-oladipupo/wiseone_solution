@@ -1,0 +1,185 @@
+<div class="row" ng-controller="ViewLeaveCalenderCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-list"></i> View Leave Calender</h5>
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption"> Location
+                            <span ng-if="!fetched" class="themeprimary">
+                                -<i class="fa fa-spinner fa-spin"></i> {{info}} 
+                            </span>
+                        </span>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themeprimary bordered-themeprimary" ng-click="export()"><i class="fa fa-file-pdf-o"></i> Download Report</button>
+                        </div>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themesecondary bordered-themesecondary" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000" ng-click="init()"><i class="fa fa-refresh"></i></button>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <form>
+                                <div class="form-group">
+                                    <select class="form-control" ng-options="option.Name for option in Locations track by option.ID" ng-model="selectedLocation" ng-change="getLocationFinancialYear()">                                    
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption"> Financial Years
+                                <span ng-if="!financialYearsFetched" class="themeprimary">
+                                    - {{financialYearInfo}}
+                                </span>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <form>
+                                <div class="form-group">
+                                    <select class="form-control" ng-options="option.Label for option in financialYears track by option.ID" ng-model="financialYear" ng-change="getLocationCalendar()">                                    
+                                        </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" ng-if="financialYearsFetched">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget" id="exportthis">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption">Leave Calender for {{selectedLocation.Name}}</span>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12" ng-if="!leaveCalendarExists">
+                                    <p class="themeprimary"><i class="fa fa-info-circle"></i> No Leave Calendar found for {{selectedLocation.Name}}</p>
+                                </div>
+                                <div class="col-lg-12 col-sm-12 col-xs-12" ng-if="leaveCalendarExists">
+                                    <div class="form-group">
+                                        <label><b>Financial Year:</b> {{financialYear.StartDate}}- {{financialYear.EndDate}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label><b>Date of Report:</b> {{date}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Months</label>
+                                        <select class="form-control" name="role" ng-options="option.Label for option in financialYear.Months track by option.Label" ng-model="financialYear.selectedMonth">
+                                                    
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="info"><b><i class="fa fa-info-circle"></i> Selected Month:</b> {{financialYear.selectedMonth.Label}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <table class="table table-hover table-striped table-bordered table-condensed text-center">
+                                            <tbody>
+                                                <tr ng-repeat="day in financialYear.selectedMonth.Days" ng-if="$index%7==0">
+                                                    <td class="leaveDay" ng-if="$index <  financialYear.selectedMonth.Days.length">
+                                                        <p class="blue">{{financialYear.selectedMonth.Days[$index].Name}}</p>
+                                                        <p>{{financialYear.selectedMonth.Days[$index].Day}}</p>
+                                                        <div ng-repeat="staff in financialYear.selectedMonth.Days[$index].Staff">
+                                                            <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                        </div>
+                                                        <p ng-show="financialYear.selectedMonth.Days[$index].BankHoliday">BH</p>
+                                                    </td>
+                                                    <td class="leaveDay" ng-if="$index+1 <  financialYear.selectedMonth.Days.length">
+                                                        <p class="blue">{{financialYear.selectedMonth.Days[$index+1].Name}}</p>
+                                                        <p>{{financialYear.selectedMonth.Days[$index+1].Day}}</p>
+                                                        <div ng-repeat="staff in financialYear.selectedMonth.Days[$index+1].Staff">
+                                                            <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                        </div>
+                                                        <p ng-show="financialYear.selectedMonth.Days[$index+1].BankHoliday">BH</p>
+                                                    </td>
+                                                    <td class="leaveDay" ng-if="$index+2 <  financialYear.selectedMonth.Days.length">
+                                                        <p class="blue">{{financialYear.selectedMonth.Days[$index+2].Name}}</p>
+                                                        <p> {{financialYear.selectedMonth.Days[$index+2].Day}}</p>
+                                                        <div ng-repeat="staff in financialYear.selectedMonth.Days[$index+2].Staff">
+                                                            <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                        </div>
+                                                        <p ng-show="financialYear.selectedMonth.Days[$index+2].BankHoliday">BH</p>
+                                                    </td>
+                                                    <td class="leaveDay" ng-if="$index+3 <  financialYear.selectedMonth.Days.length">
+                                                        <p class="blue">{{financialYear.selectedMonth.Days[$index+3].Name}}</p>
+                                                        <p>{{financialYear.selectedMonth.Days[$index+3].Day}}</p>
+                                                        <div ng-repeat="staff in financialYear.selectedMonth.Days[$index+3].Staff">
+                                                            <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                        </div>
+                                                        <p ng-show="financialYear.selectedMonth.Days[$index+3].BankHoliday">BH</p>
+                                                    </td>
+                                                    <td class="leaveDay" ng-if="$index+4 <  financialYear.selectedMonth.Days.length">
+                                                        <p class="blue">{{financialYear.selectedMonth.Days[$index+4].Name}}</p>
+                                                        <p>{{financialYear.selectedMonth.Days[$index+4].Day}}</p>
+                                                        <div ng-repeat="staff in financialYear.selectedMonth.Days[$index+4].Staff">
+                                                            <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                        </div>
+                                                        <p ng-show="financialYear.selectedMonth.Days[$index+4].BankHoliday">BH</p>
+                                                    </td>
+                                                    <td class="leaveDay" ng-if="$index+5 <  financialYear.selectedMonth.Days.length">
+                                                        <p class="blue">{{financialYear.selectedMonth.Days[$index+5].Name}}</p>
+                                                        <p>{{financialYear.selectedMonth.Days[$index+5].Day}}</p>
+                                                        <div ng-repeat="staff in financialYear.selectedMonth.Days[$index+5].Staff">
+                                                            <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                        </div>
+                                                        <p ng-show="financialYear.selectedMonth.Days[$index+5].BankHoliday">BH</p>
+                                                    </td>
+                                                    <td class="leaveDay" ng-if="$index+6 <  financialYear.selectedMonth.Days.length">
+                                                        <p class="blue">{{financialYear.selectedMonth.Days[$index+6].Name}}</p>
+                                                        <p>{{financialYear.selectedMonth.Days[$index+6].Day}}</p>
+                                                        <div ng-repeat="staff in financialYear.selectedMonth.Days[$index+6].Staff">
+                                                            <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                        </div>
+                                                        <p ng-show="financialYear.selectedMonth.Days[$index+6].BankHoliday">BH</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption">Leave Calender Summary - showing months excluded and bank holidays</span>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12" ng-if="!leaveCalendarExists">
+                                    <p class="themeprimary"><i class="fa fa-info-circle"></i> No Leave Calendar found for {{selectedLocation.Name}}</p>
+                                </div>
+                                <div class="col-lg-12 col-sm-12 col-xs-12" ng-if="leaveCalendarExists">
+                                    <div class="form-group">
+                                        <label><b>Exclude Months:</b> {{financialYear.ExcludeMonthsDetails}}</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label><b>Bank Holidays:</b></label>
+                                        <span ng-if="!bankHolidays.length">
+                                                    No bank holidays configured.
+                                                </span>
+                                        <ul ng-if="bankHolidays.length" ng-repeat="day in bankHolidays">
+                                            <li>{{day}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

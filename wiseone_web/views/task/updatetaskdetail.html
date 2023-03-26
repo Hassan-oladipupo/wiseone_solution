@@ -1,0 +1,221 @@
+<div class="row" ng-controller="UpdateTaskDetailCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-pencil-square-o"></i> Update Task</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption text-danger" ng-show="disabled===true;"> <i class="fa fa-spinner fa-spin"></i> loading assigned staff... </span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themesecondary bordered-themesecondary" ng-click="goBack()"><i class="fa fa-arrow-circle-left"></i></button>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <wizard indicators-position="top" edit-mode="true">
+                            <wz-step wz-title="Enter Task Details" canexit="taskDetailsValidation">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <!-- SUBJECT -->
+                                        <div class="form-group">
+                                            <label>Subject*</label>
+                                            <input type="text" class="form-control" ng-model="task.Subject" placeholder="Task Subject" required capitalize>
+                                        </div>
+
+                                        <!-- DETAILS -->
+                                        <div class="form-group">
+                                            <label>Details*</label>
+                                            <span class="input-icon icon-right">
+                                                            <textarea class="form-control" rows="10" ng-model="task.Details" placeholder="Task Details" required></textarea>
+                                                           
+                                                        </span>
+                                        </div>
+
+                                        <!-- Date of Completion -->
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="daterange6" class="control-label">Date of Completion*</label>
+                                                <input date-range-picker name="daterange6" id="daterange6" class="form-control date-picker" type="text" ng-model="date.completion" options="date.opts" required/>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next>Next <i class="fa fa-angle-right"></i></button>
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                            <wz-step wz-title="Select Staff for Task" canexit="selectedStaffValidation">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <!-- List of staffs -->
+                                        <div class="form-group" ng-class="{ 'has-error' : taskForm.staff.$invalid && !taskForm.staff.$pristine }">
+                                            <label>Select Staff*</label>
+                                            <ui-select ng-model="staff.selectedValue" theme="bootstrap" name="staff" ng-disabled="disabled" style="min-width: 300px;" title="Choose a staff">
+                                                <ui-select-match placeholder="Select a staff in the list or search his surname/firstname/username/knownas">{{$select.selected.FirstName}} {{$select.selected.Surname}}</ui-select-match>
+                                                <ui-select-choices repeat="staff in staffs | propsFilter: {Surname: $select.search, FirstName: $select.search, Username: $select.search, KnownAs: $select.search}">
+                                                    <div ng-bind-html="staff.KnownAs | highlight: $select.search"></div>
+                                                    <small>
+                                                                    Name: {{staff.FirstName}} {{staff.MiddleName}} {{staff.Surname}} <br/>
+                                                                    Role: {{staff.Role.Name}}<br/>
+                                                                    Location: {{staff.Location.Name}}<br/>
+                                                                    Email: {{staff.Email}}<br/>
+                                                                    <b class="danger" ng-show="staff.Leave"><i class="fa fa-info-circle"></i> On Leave</b>
+                                                                </small>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+
+                                        <div class="form-group" style="float:right;">
+                                            <button type="button" class="btn themethirdcolor bordered-themethirdcolor" ng-click="addStaff()"><i class="fa fa-plus-square"></i></button>
+                                        </div>
+
+                                        <div class="form-group" style="float:right;">
+                                            &nbsp;
+                                        </div>
+
+                                        <div class="form-group">
+                                            <br>
+                                            <h5 class="row-title before-themesecondary"><i class="fa fa-users themesecondary"></i>Selected Staff List</h5>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="15%">Task Leader</th>
+                                                            <th width="25%">Name</th>
+                                                            <th width="10%">Known As</th>
+                                                            <th width="20%">Role</th>
+                                                            <th width="25%">Location</th>
+                                                            <th width="5%"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-if="!selectedStaff.length">
+                                                            <td class="label-tags" colspan="6">
+                                                                <span class="label label-primary"><i class="fa fa-info-circle"> There are no selected staff.</i></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-if="selectedStaff.length" ng-repeat="staff in selectedStaff">
+                                                            <td class="text-center">
+                                                                <div class="checkbox">
+                                                                    <label>
+                                                                                    <input type="checkbox" ng-model="staff.TaskLeader">
+                                                                                    <span class="text"></span>
+                                                                                </label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{staff.FirstName}} {{staff.MiddleName}} {{staff.Surname}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{staff.KnownAs}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{staff.Role.Name}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p>{{staff.Location.Name}}</p>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn themesecondary bordered-themesecondary" ng-hide="staff.ExistingStaff" ng-click="removeStaff(staff)"><i class="fa fa-trash"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-default themesecondary bordered-themesecondary" wz-previous><i class="fa fa-angle-left"></i> Previous</button>
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next>Next <i class="fa fa-angle-right"></i></button>
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                            <wz-step wz-title="Confirm Task">
+
+                                <form>
+                                    <div class="form-group">
+                                        &nbsp;
+                                    </div>
+                                    <!-- SUBJECT -->
+                                    <div class="form-group">
+                                        <label><b>Subject: </b></label>
+                                        <label>{{task.Subject}}</label>
+                                    </div>
+
+                                    <!-- DETAILS -->
+                                    <div class="form-group">
+                                        <label><b>Details: </b></label>
+                                        <label>{{task.Details}}</label>
+                                    </div>
+
+                                    <!-- DETAILS -->
+                                    <div class="form-group">
+                                        <label><b>Date of completion: </b></label>
+                                        <label>{{dateOfCompletion}}</label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <br>
+                                        <h5 class="row-title before-themesecondary"><i class="fa fa-users themesecondary"></i>Staff Handing this Task</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="15%">Task Leader</th>
+                                                        <th width="25%">Name</th>
+                                                        <th width="10%">Known As</th>
+                                                        <th width="25%">Role</th>
+                                                        <th width="25%">Location</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-if="!selectedStaff.length">
+                                                        <td class="label-tags" colspan="5">
+                                                            <span class="label label-primary"><i class="fa fa-info-circle"> You have not chosen any staff for this Task.</i></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-if="selectedStaff.length" ng-repeat="staff in selectedStaff">
+                                                        <td class="text-center">
+                                                            <p ng-show="staff.TaskLeader"><i class="fa fa-check"></i></p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{staff.FirstName}} {{staff.MiddleName}} {{staff.Surname}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{staff.KnownAs}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{staff.Role.Name}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{{staff.Location.Name}}</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn btn-default themesecondary bordered-themesecondary" wz-previous><i class="fa fa-angle-left"></i> Previous</button>
+                                    <button type="button" class="btn btn-default themeprimary bordered-themeprimary" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000" ng-click="save()"><i class="fa fa-save"></i></button>
+
+                                </form>
+                            </wz-step>
+
+                        </wizard>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

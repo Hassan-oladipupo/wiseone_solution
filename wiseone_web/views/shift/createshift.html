@@ -1,0 +1,309 @@
+<div class="row" ng-controller="CreateShiftCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-plus-square"></i> Create Shift</h5>
+
+        <div class="row" scroll-bookmark="bookmark1">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-calendar"></i>
+                        <span class="widget-caption"><b>Shift Week</b></span>
+                        <div class="widget-buttons">
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <!--Widget Buttons-->
+                    </div>
+                    <div class="widget-body ">
+                        <div id="horizontal-form">
+                            <form>
+                                <!--SHIFT DATE-->
+                                <div class="form-group">
+                                    <label>Shift Date Range</label>
+                                    <input date-range-picker id="daterange4" name="daterange4" class="form-control date-picker" type="text" ng-model="shiftdate" options="shiftdate.opts" />
+                                </div>
+
+                                <!-- WEEK NAME -->
+                                <div class="form-group">
+                                    <label>Week</label>
+                                    <input type="text" class="form-control" ng-model="shift.WeekName" readonly capitalize>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-building"></i>
+                        <span class="widget-caption text-danger" ng-show="!utility.locationsRetrieved"> <i class="fa fa-spinner fa-spin"></i> loading locations, staff list and rooms... </span>
+                        <span class="widget-caption" ng-show="utility.locationsRetrieved"><b>Select Location</b> - The Location you are creating shift for</span>
+                        <div class="widget-buttons">
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <!--Widget Buttons-->
+                    </div>
+                    <div class="widget-body ">
+                        <div id="horizontal-form">
+                            <form>
+                                <!--LOCATION-->
+                                <div class="form-group">
+                                    <label>Location*</label>
+                                    <select class="form-control" ng-disabled="!utility.locationsRetrieved" ng-options="option.Name for option in utility.locations track by option.ID" ng-model="shift.Location" ng-change="getStaffLocation()">
+                                    </select>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="utility.locationsRetrieved">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-gear"></i>
+                        <span class="widget-caption"><b>Shift Settings</b> for {{shift.Location.Name}}</span>
+
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <!--Widget Buttons-->
+                    </div>
+                    <div class="widget-body">
+                        <wizard indicators-position="top" edit-mode="true">
+
+                            <wz-step wz-title="Set Shift for Staff">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <!-- CONFIGURATION -->
+                                        <div class="form-group">
+                                            <table class="table table-hover table-striped table-bordered smallText" style="width:100%">
+                                                <thead class="bordered-blueberry">
+                                                    <tr>
+                                                        <th style="width:5%">
+
+                                                        </th>
+                                                        <th style="width:10%">
+                                                            Staff
+                                                        </th>
+                                                        <th style="width:17%">
+                                                            Monday
+                                                        </th>
+                                                        <th style="width:17%">
+                                                            Tuesday
+                                                        </th>
+                                                        <th style="width:17%">
+                                                            Wednesday
+                                                        </th>
+                                                        <th style="width:17%">
+                                                            Thursday
+                                                        </th>
+                                                        <th style="width:17%">
+                                                            Friday
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="7">
+                                                            <div id="horizontal-form">
+                                                                <form>
+                                                                    <!--LOCATION-->
+                                                                    <div class="form-group">
+                                                                        <label>Search staff by Location*</label>
+                                                                        <select class="form-control" ng-options="option.Name for option in utility.locations track by option.ID" ng-model="utility.staffLocation" ng-change="getStaff()">                                       
+                                                                        </select>
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="7">
+                                                            <input type="text" placeholder="Search Staff  in {{utility.staffLocation.Name}} by Name" class="form-control" ng-model="utility.searchText" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-repeat="staff in utility.selectedStaffs | filter:utility.searchText">
+                                                        <td>
+                                                            <div class="checkbox">
+                                                                <label>
+                                <input type="checkbox" class="colored-blueberry" ng-model="staff.ShiftConfigured">
+                                <span class="text smallText"></span>
+                            </label>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <p class="themesecondary"><i class="fa fa-user"></i> {{staff.Name | uppercase}}</p>
+
+                                                            <p ng-show="staff.Leave" class="themeprimary"><i class="fa fa-check-circle-o"></i> On Leave</p>
+                                                        </td>
+                                                        <td ng-repeat="shift in staff.Shift">
+                                                            <div class="checkbox">
+                                                                <label>
+                                <input type="checkbox" ng-model="shift.Configure">
+                                <span class="text smallText">Set {{shift.Day}} Shift</span>
+                            </label>
+                                                            </div>
+                                                            <div ng-show="shift.Configure">
+                                                                <form>
+                                                                    <div class="form-group">
+                                                                        <label class="smallText">Room</label>
+                                                                        <select class="form-control smallText" ng-options="option.Name for option in utility.locationRooms" ng-model="shift.Room">                                                                
+                                    <option value="">Select Room</option>
+                                </select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="smallText">From</label>
+                                                                        <input type="number" step="any" class="form-control smallText" ng-model="shift.From" min="7" max="19" />
+                                                                    </div>
+                                                                    <div class="form-group smallText">
+                                                                        <label class="smallText">To</label>
+                                                                        <input type="number" step="any" class="form-control smallText" ng-model="shift.To" min="7" max="19" />
+                                                                    </div>
+                                                                    <div class="form-group smallText">
+                                                                        <div class="checkbox">
+                                                                            <label>
+                                        <input type="checkbox" class="colored-blueberry" ng-model="shift.HasSupervision">
+                                        <span class="text smallText">Has Supervision</span>
+                                    </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="smallText">Break Time Duration (min)</label>
+                                                                        <input type="number" class="form-control smallText" ng-model="shift.BreakTimeDuration" />
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="smallText">Folder Time Duration (min)</label>
+                                                                        <input type="number" class="form-control smallText" ng-model="shift.FolderTimeDuration" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <button type="button" class="btn btn-primary btn-block" ng-click="replicateShift(staff, shift)"><i class="fa fa-files-o "></i> Replicate</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next>Next <i class="fa fa-angle-right"></i></button>
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                            <wz-step wz-title="General Information">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <div class="form-group">
+                                            <label>General Information</label>
+                                            <span class="input-icon icon-right">
+                                                <textarea class="form-control" ng-model="shift.GeneralInformation" placeholder="General Information" rows="10"></textarea>
+                                                <i class="glyphicon glyphicon-info-sign info"></i>
+                                            </span>
+                                        </div>
+                                        <button type="button " class="btn btn-default themesecondary bordered-themesecondary " wz-previous><i class="fa fa-angle-left "></i> Previous</button>
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" scroll-to-bookmark wz-next="setSummary()">Next <i class="fa fa-angle-right"></i></button>
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                            <wz-step wz-title="Shift Summary" scroll-bookmark>
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <div class="form-group">
+                                            <h5 class="row-title themeprimary"><i class="fa fa-users"></i> Staff on shift</h5>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" width="100%" padding="10px">
+                                                    <thead>
+                                                        <th style="width:20%">Staff</th>
+                                                        <th style="width:16%">Monday</th>
+                                                        <th style="width:16%">Tuesday</th>
+                                                        <th style="width:16%">Wednesday</th>
+                                                        <th style="width:16%">Thursday</th>
+                                                        <th style="width:16%">Friday</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-if="!utility.staffOnShift.length">
+                                                            <td class="label-tags" colspan="6">
+                                                                <span class="label label-primary"><i class="fa fa-info-circle"> There are no selected staff.</i></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-if="utility.staffOnShift.length" ng-repeat="staff in utility.staffOnShift">
+                                                            <td>
+                                                                {{staff.Name}}
+                                                            </td>
+                                                            <td>
+                                                                <span ng-if="!staff.MondayConfigured">---</span>
+                                                                <span ng-if="staff.MondayConfigured">
+                                                                    <span ng-if="staff.MondayRoomSelected">{{staff.Monday}}</span><span ng-if="!staff.MondayRoomSelected" class="themesecondary"><i class="fa fa-exclamation-triangle"></i> No room selected</span>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span ng-if="!staff.TuesdayConfigured">---</span>
+                                                                <span ng-if="staff.TuesdayConfigured">
+                                                                    <span ng-if="staff.TuesdayRoomSelected">{{staff.Tuesday}}</span><span ng-if="!staff.TuesdayRoomSelected" class="themesecondary"><i class="fa fa-exclamation-triangle"></i> No room selected</span>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span ng-if="!staff.WednesdayConfigured">---</span>
+                                                                <span ng-if="staff.WednesdayConfigured">
+                                                                    <span ng-if="staff.WednesdayRoomSelected">{{staff.Wednesday}}</span><span ng-if="!staff.WednesdayRoomSelected" class="themesecondary"><i class="fa fa-exclamation-triangle"></i> No room selected</span>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span ng-if="!staff.ThursdayConfigured">---</span>
+                                                                <span ng-if="staff.ThursdayConfigured">
+                                                                    <span ng-if="staff.ThursdayRoomSelected">{{staff.Thursday}}</span><span ng-if="!staff.ThursdayRoomSelected" class="themesecondary"><i class="fa fa-exclamation-triangle"></i> No room selected</span>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span ng-if="!staff.FridayConfigured">---</span>
+                                                                <span ng-if="staff.FridayConfigured">
+                                                                    <span ng-if="staff.FridayRoomSelected">{{staff.Friday}}</span><span ng-if="!staff.FridayRoomSelected" class="themesecondary"><i class="fa fa-exclamation-triangle"></i> No room selected</span>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <h5 class="row-title themeprimary"><i class="fa fa-info-circle"></i> General Information</h5><br>
+                                            <span ng-if="shift.GeneralInformation === ''">
+                                                    <span class="label label-primary"><i class="fa fa-info-circle"> No general information provided.</i></span>
+                                            </span>
+                                            <span ng-if="shift.GeneralInformation !== ''">{{shift.GeneralInformation}}</span>
+                                        </div>
+                                        <button type="button " class="btn btn-default themesecondary bordered-themesecondary " wz-previous><i class="fa fa-angle-left "></i> Previous</button>
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" ng-click="save()" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000" wz-next scroll-to-bookmark="bookmark1"><i class="fa fa-save"></i></button>
+                                    </form>
+                                </div>
+                            </wz-step>
+                        </wizard>
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

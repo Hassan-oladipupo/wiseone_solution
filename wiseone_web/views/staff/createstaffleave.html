@@ -1,0 +1,316 @@
+<div class="row" ng-controller="CreateLeaveCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-plus-square"></i> Create Leave for Staff</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-list"></i>
+                        <span class="widget-caption"><b>Staff and Leave Details</b> </span>
+                        <div class="widget-buttons">
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themesecondary bordered-themesecondary" ng-click="goBack()"><i class="fa fa-arrow-circle-left"></i></button>
+                        </div>
+                        <!--Widget Buttons-->
+                    </div>
+                    <div class="widget-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-xs-12" style="float: left;">
+                                    <h5 class="row-title before-themeprimary"><i class="fa fa-user"></i>Staff Details</h5>
+                                    <div class="form-group">
+                                        <b>Name:</b> {{staff.Name}}
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Staff ID:</b> {{staff.StaffID}}
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Role:</b> {{staff.Role.Name}}
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Location:</b> {{staff.Location.Name}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-sm-1 col-xs-12">
+                                    <h5>&nbsp;</h5>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ng-if="!financialYearFetched">
+                                                <i class="fa fa-spinner fa-spin themeprimary"></i> <span class="themeprimary"> {{info}}</span>
+                                            </div>
+                                            <div ng-if="financialYearFetched && !financialYearExists">
+                                                <i class="fa fa-warning themeprimary"></i> <span class="themeprimary"> {{info}}</span>
+                                            </div>
+                                            <div ng-if="financialYearFetched && financialYearExists">
+                                                <h5 class="row-title before-themeprimary"><i class="fa fa-calendar"></i>Financial Year</h5>
+                                                <select class="form-control" ng-options="option.Label for option in financialYears track by option.ID" ng-model="financialYear" ng-change="getStaffLeaves(financialYear)">                                    
+                                                    </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ng-if="financialYearFetched && financialYearExists">
+                                                <p><b>Total Number of Leave Days Applicable:</b> {{staff.NumberOfLeaveDays}} </p>
+                                                <p><b>Compulsory/Bank Holidays:</b> {{staffLeave.BankHolidays.length}} </p>
+                                                <p> 
+                                                <h3 ng-if="financialYear.Status === 'Opened'" style="color: green;">{{financialYear.Status}}</h3>  <h3 ng-if="financialYear.Status === 'Closed'" style="color: red;">{{financialYear.Status}}</h3> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div ng-if="financialYearFetched && financialYearExists">
+                                        <h5 class="row-title before-themeprimary"><i class="fa fa-calendar"></i>Leave Details</h5>
+                                        <div ng-if="!leaveDetailsFetched && financialYearExists">
+                                            <i class="fa fa-spinner fa-spin themeprimary"></i> <span class="themeprimary"> {{leaveDetailsInfo}}</span>
+                                        </div>
+                                        <div ng-if="leaveDetailsFetched">
+                                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                                <p><b>Non Deductible Leave Days Approved:</b> {{staffLeave.NumberOfNonLeaveTaken}} </p>
+                                                <p><b>Deductible Leave Days Approved:</b> {{staffLeave.NumberOfLeaveTaken}} </p>
+                                                <p><b>Total Leave Days Approved:</b> {{staffLeave.NumberOfLeaveTaken + staffLeave.NumberOfNonLeaveTaken}} </p>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                                <p><b>Deductible Leave Days Awaiting Approval:</b> {{staffLeave.NumberOfPendingLeaveTaken}} </p>
+                                                <p> <b>Deductible Days Remaining for Booking Leave:</b> {{staffLeave.NumberOfLeaveRemaining}} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="leaveDetailsFetched">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-gears"></i>
+                        <span class="widget-caption"><b>Leave Settings</b></span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <wizard indicators-position="top" edit-mode="true">
+                            <wz-step wz-title="Select Leave Days">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Months</label>
+                                            <select class="form-control" name="role" ng-options="option.Label for option in financialYear.Months track by option.Label" ng-model="selectedMonth">
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="info"><b><i class="fa fa-info-circle"></i> Selected Month:</b> {{selectedMonth.Label}}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <table class="table table-hover table-striped table-bordered table-condensed text-center">
+                                                <tbody>
+                                                    <tr ng-repeat="day in selectedMonth.Days" ng-if="$index%7==0">
+                                                        <td class="leaveDay" ng-if="$index <  selectedMonth.Days.length">
+                                                            <p class="blue">{{selectedMonth.Days[$index].Name}}</p>
+                                                            <p>{{selectedMonth.Days[$index].Day}}</p>
+                                                            <div class="checkbox" ng-hide="selectedMonth.Days[$index].BankHoliday || selectedMonth.Days[$index].Name == 'Sun' || selectedMonth.Days[$index].Name == 'Sat'">
+                                                                <label>
+                                                                    <input type="checkbox" checklist-model="selectedDays" checklist-value="selectedMonth.Days[$index]">
+                                                                    <span class="text"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div ng-repeat="staff in selectedMonth.Days[$index].Staff">
+                                                                <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                            </div>
+                                                            <p ng-show="selectedMonth.Days[$index].BankHoliday">BH</p>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+1 <  selectedMonth.Days.length">
+                                                            <p class="blue">{{selectedMonth.Days[$index+1].Name}}</p>
+                                                            <p>{{selectedMonth.Days[$index+1].Day}}</p>
+                                                            <div class="checkbox" ng-hide="selectedMonth.Days[$index+1].BankHoliday || selectedMonth.Days[$index+1].Name == 'Sun' || selectedMonth.Days[$index+1].Name == 'Sat'">
+                                                                <label>
+                                                                    <input type="checkbox" checklist-model="selectedDays" checklist-value="selectedMonth.Days[$index+1]">
+                                                                    <span class="text"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div ng-repeat="staff in selectedMonth.Days[$index+1].Staff">
+                                                                <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                            </div>
+                                                            <p ng-show="selectedMonth.Days[$index+1].BankHoliday">BH</p>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+2 <  selectedMonth.Days.length">
+                                                            <p class="blue">{{selectedMonth.Days[$index+2].Name}}</p>
+                                                            <p> {{selectedMonth.Days[$index+2].Day}}</p>
+                                                            <div class="checkbox" ng-hide="selectedMonth.Days[$index+2].BankHoliday || selectedMonth.Days[$index+2].Name == 'Sun' || selectedMonth.Days[$index+2].Name == 'Sat'">
+                                                                <label>
+                                                                    <input type="checkbox" checklist-model="selectedDays" checklist-value="selectedMonth.Days[$index+2]">
+                                                                    <span class="text"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div ng-repeat="staff in selectedMonth.Days[$index+2].Staff">
+                                                                <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                            </div>
+                                                            <p ng-show="selectedMonth.Days[$index+2].BankHoliday">BH</p>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+3 <  selectedMonth.Days.length">
+                                                            <p class="blue">{{selectedMonth.Days[$index+3].Name}}</p>
+                                                            <p>{{selectedMonth.Days[$index+3].Day}}</p>
+                                                            <div class="checkbox" ng-hide="selectedMonth.Days[$index+3].BankHoliday || selectedMonth.Days[$index+3].Name == 'Sun' || selectedMonth.Days[$index+3].Name == 'Sat'">
+                                                                <label>
+                                                                    <input type="checkbox" checklist-model="selectedDays" checklist-value="selectedMonth.Days[$index+3]">
+                                                                    <span class="text"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div ng-repeat="staff in selectedMonth.Days[$index+3].Staff">
+                                                                <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                            </div>
+                                                            <p ng-show="selectedMonth.Days[$index+3].BankHoliday">BH</p>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+4 <  selectedMonth.Days.length">
+                                                            <p class="blue">{{selectedMonth.Days[$index+4].Name}}</p>
+                                                            <p>{{selectedMonth.Days[$index+4].Day}}</p>
+                                                            <div class="checkbox" ng-hide="selectedMonth.Days[$index+4].BankHoliday || selectedMonth.Days[$index+4].Name == 'Sun' || selectedMonth.Days[$index+4].Name == 'Sat'">
+                                                                <label>
+                                                                    <input type="checkbox" checklist-model="selectedDays" checklist-value="selectedMonth.Days[$index+4]">
+                                                                    <span class="text"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div ng-repeat="staff in selectedMonth.Days[$index+4].Staff">
+                                                                <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                            </div>
+                                                            <p ng-show="selectedMonth.Days[$index+4].BankHoliday">BH</p>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+5 <  selectedMonth.Days.length">
+                                                            <p class="blue">{{selectedMonth.Days[$index+5].Name}}</p>
+                                                            <p>{{selectedMonth.Days[$index+5].Day}}</p>
+                                                            <div class="checkbox" ng-hide="selectedMonth.Days[$index+5].BankHoliday || selectedMonth.Days[$index+5].Name == 'Sun' || selectedMonth.Days[$index+5].Name == 'Sat'">
+                                                                <label>
+                                                                    <input type="checkbox" checklist-model="selectedDays" checklist-value="selectedMonth.Days[$index+5]">
+                                                                    <span class="text"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div ng-repeat="staff in selectedMonth.Days[$index+5].Staff">
+                                                                <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                            </div>
+                                                            <p ng-show="selectedMonth.Days[$index+5].BankHoliday">BH</p>
+                                                        </td>
+                                                        <td class="leaveDay" ng-if="$index+6 <  selectedMonth.Days.length">
+                                                            <p class="blue">{{selectedMonth.Days[$index+6].Name}}</p>
+                                                            <p>{{selectedMonth.Days[$index+6].Day}}</p>
+                                                            <div class="checkbox" ng-hide="selectedMonth.Days[$index+6].BankHoliday || selectedMonth.Days[$index+6].Name == 'Sun' || selectedMonth.Days[$index+6].Name == 'Sat'">
+                                                                <label>
+                                                                    <input type="checkbox" checklist-model="selectedDays" checklist-value="selectedMonth.Days[$index+6]">
+                                                                    <span class="text"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div ng-repeat="staff in selectedMonth.Days[$index+6].Staff">
+                                                                <span><i class="fa fa-user"></i> {{staff.StaffKnownAs}}</span>
+                                                            </div>
+                                                            <p ng-show="selectedMonth.Days[$index+6].BankHoliday">BH</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next>Next <i class="fa fa-angle-right"></i></button>
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                            <wz-step wz-title="Finish">
+                                <div id="horizontal-form">
+                                    <form>
+                                        <div class="form-group">
+                                            &nbsp;
+                                        </div>
+                                        <p>
+                                            <h5><b>Selected Leave Days:</b></h5>
+                                            <span ng-if="!selectedDays.length">
+                                                No leave days selected.
+                                            </span>
+                                            <ul ng-if="selectedDays.length" ng-repeat="day in selectedDays | orderBy : 'ID'">
+                                                <li>{{day.Name}} {{day.Day}} {{day.Month}} {{day.Year}}</li>
+                                            </ul>
+                                        </p>
+                                        <div ng-if="selectedDays.length">
+                                            <div>
+                                                <h5><b>Select type of leave</b></h5>
+                                                <div class="form-group">
+                                                    <select class="form-control" ng-options="option.Name for option in financialYear.LeaveTypes track by option.Type" ng-model="typeOfLeave.selectedLeaveType">
+                                                </select>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h5><b>Is Leave Deductible?</b></h5>
+                                                <p ng-if="typeOfLeave.selectedLeaveType.Deductible">Yes</p>
+                                                <p ng-if="!typeOfLeave.selectedLeaveType.Deductible">No</p>
+                                            </div>
+                                            <div ng-if="selectedDays.length == 1">
+                                                <h5><b>Select the number of days</b></h5>
+                                                <div class="form-group">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                        <input type="radio" name="group" ng-model="leaveType" value="full" ng-change="setLeaveType(leaveType)">
+                                                        <span class="text">A full day</span>
+                                                    </label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                        <input type="radio" name="group" ng-model="leaveType" value="part" ng-change="setLeaveType(leaveType)">
+                                                        <span class="text"> Or a half day AM</span>
+                                                    </label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                        <input type="radio" name="group" ng-model="leaveType" value="partpm" ng-change="setLeaveType(leaveType)">
+                                                        <span class="text"> Or a half day PM</span>
+                                                    </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-if="selectedDays.length > 1">
+                                                <h5><b>Select the number of days</b></h5>
+                                                <div class="form-group">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                        <input type="radio" name="group" ng-model="leaveType" value="full" ng-change="setLeaveType(leaveType)">
+                                                        <span class="text">{{selectedDays.length}} full days</span>
+                                                    </label>
+                                                    </div>
+                                                    <div class="checkbox">
+                                                        <label>
+                                                        <input type="radio" name="group" ng-model="leaveType" value="part" ng-change="setLeaveType(leaveType)">
+                                                        <span class="text"> Or {{selectedDays.length - 1}} and half days</span>
+                                                    </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-default themesecondary bordered-themesecondary" wz-previous><i class="fa fa-angle-left"></i> Previous</button>
+                                        <button type="button" class="btn btn-default themeprimary bordered-themeprimary" ng-disabled="selectedDays.length < 1" ng-click="save()" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000"><i class="fa fa-save"></i></button>
+                                    </form>
+                                </div>
+                            </wz-step>
+
+                        </wizard>
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

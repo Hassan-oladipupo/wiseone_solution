@@ -1,0 +1,73 @@
+<div class="row" ng-controller="AddRoleCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-plus-square"></i> Add Role</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <form name="roleForm" ng-submit="save()" novalidate>
+
+                                <!-- NAME -->
+                                <div class="form-group" ng-class="{ 'has-error' : roleForm.name.$invalid && !roleForm.name.$pristine }">
+                                    <label>Name*</label>
+                                    <input type="text" name="name" class="form-control" ng-model="role.Name" placeholder="Role Name" required capitalize>
+                                </div>
+
+                                <!-- TYPE -->
+                                <div class="form-group" ng-class="{ 'has-error' : roleForm.type.$invalid && !roleForm.type.$pristine }">
+                                    <label>Type*</label>
+                                    <select class="form-control" name="type" ng-model="role.Type" required>
+                                        <option value="">Select Role Type</option>
+                                        <option value="Operation">Operation</option>
+                                        <option value="Coach">Coach</option>
+                                        <option value="Others">Others</option>        
+                                    </select>
+                                </div>
+
+                                <!-- ACCESS TO WEB -->
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="role.CanAccessWeb">
+                                            <span class="text">Grant Access to WiseOne Web</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Functions -->
+                                <div class="form-group">
+                                    <div class="widget">
+                                        <div class="widget-header">
+                                            <i class="widget-icon fa fa-hand-o-up"></i>
+                                            <span class="widget-caption">Select Functions*</span>
+                                        </div>
+                                        <!--Widget Header-->
+                                        <div class="widget-body">
+                                            <div id="functions" class="dt-rows">
+                                                <div id="loadingMsg" class="label label-sky">
+                                                    <i class="fa fa-circle-o-notch fa-spin"></i> Loading system functions...
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--Widget Body-->
+                                    </div>
+                                    <!--Widget-->
+                                </div>
+
+                                <button type="submit" ng-disabled="!roleForm.$valid" class="btn themeprimary bordered-themeprimary" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000"><i class="fa fa-save"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="modal-header bg-themeprimary flexi-profile-icon">
+    <i class="fa fa-times-circle"></i> Approve or Decline Leave Cancellation Request
+</div>
+<div class="modal-body">
+    <div>
+        <div>
+            <h5 class="row-title before-themeprimary"><i class="fa fa-user themeprimary"></i>{{leave.StaffKnownAs}} [{{leave.StaffName}}]</h5>
+            <div class="well well-lg col-lg-12">
+                <div id="horizontal-form">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-5 col-sm-5 col-xs-5">
+                                <p><b class="themeprimary"><i class="fa fa-calendar"></i> Days Requested</b> </p>
+                                <p ng-repeat="day in leave.RequestedDays">
+                                    {{day.Name}} {{day.Day}} {{day.Month}}, {{day.Year}}
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button ng-show="leave.Approval.ApprovalStatus == 'Pending'" type="button" class="btn themesecondary bordered-themesecondary" ng-click="decline()">Decline</button>
+    <button ng-show="leave.Approval.ApprovalStatus == 'Pending'" type="button" class="btn themeprimary bordered-themeprimary" ng-click="approve()">Approve</button>
+</div>

@@ -1,0 +1,252 @@
+<div class="modal-header bg-themeprimary flexi-profile-icon">
+    <i class="fa fa-check-square-o"></i> {{staff.FirstName}} {{staff.MiddleName}} {{staff.Surname}}
+</div>
+<div class="modal-body">
+    <wizard indicators-position="top" edit-mode="true">
+        <wz-step wz-title="Qualifying Questions">
+            <div id="horizontal-form">
+                <form>
+                    <div class="form-group">
+                        &nbsp;
+                    </div>
+                    <div class="form-group">
+                        <label>Do you have current (within 3 years) WMB DBS?</label>
+                        <input type="text" class="form-control" ng-model="staff.DBS" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Do you have a current (within 2 years) safeguarding certificate?</label>
+                        <input type="text" class="form-control" ng-model="staff.SafeGuarding" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Do you have a current (within 3 years) First Aid?</label>
+                        <input type="text" class="form-control" ng-model="staff.FirstAid" readonly>
+                    </div>
+
+                    <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next>Next <i class="fa fa-angle-right"></i></button>
+                </form>
+            </div>
+        </wz-step>
+
+        <wz-step wz-title="Personal Details">
+            <div id="horizontal-form">
+                <form>
+                    <div class="form-group">
+                        &nbsp;
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" ng-model="staff.Title" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" ng-model="staff.FirstName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Middle Name</label>
+                        <input type="text" class="form-control" ng-model="staff.MiddleName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Surname</label>
+                        <input type="text" class="form-control" ng-model="staff.Surname" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Known As</label>
+                        <input type="text" class="form-control" ng-model="staff.KnownAs" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <input type="text" class="form-control" ng-model="staff.Gender" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="text" class="form-control" ng-model="staff.DOB" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" ng-model="staff.Address" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Post Code</label>
+                        <input type="text" class="form-control" ng-model="staff.PostCode" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Telephone Number</label>
+                        <input type="text" class="form-control" ng-model="staff.Telephone" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Alternate Telephone Number</label>
+                        <input type="text" class="form-control" ng-model="staff.AlternateTelephone" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Emergency Phone Contact Number</label>
+                        <input type="text" class="form-control" ng-model="staff.EmergencyContactPhoneNo" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="text" class="form-control" ng-model="staff.Email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>National Insurance Number</label>
+                        <input type="text" class="form-control" ng-model="staff.NationalInsuranceNumber" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Qualifications</label>
+                        <input type="text" class="form-control" ng-model="staff.Qualifications" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Driving License</label>
+                        <input type="text" class="form-control" ng-model="staff.DrivingLicense" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Registered Disabled</label>
+                        <input type="text" class="form-control" ng-model="staff.RegisteredDisabled" readonly>
+                    </div>
+
+                    <button type="button" class="btn btn-default themesecondary bordered-themesecondary" wz-previous><i class="fa fa-angle-left"></i> Previous</button>
+                    <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next>Next <i class="fa fa-angle-right"></i></button>
+                </form>
+            </div>
+        </wz-step>
+
+        <wz-step wz-title="References">
+            <div id="horizontal-form">
+                <form>
+                    <div class="form-group">
+                        &nbsp;
+                    </div>
+                    <h5 class="row-title themesecondary"><i class="fa fa-user"></i> Reference 1</h5>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferenceName1" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferencePhoneNumber1" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferenceEmail1" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferenceCompanyName1" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Relationship</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferenceRelationship1" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Should this referee be contacted?</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferenceCanContact1" readonly>
+                    </div>
+                    <h5 class="row-title themesecondary"><i class="fa fa-user"></i> Reference 2</h5>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferenceName2" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferencePhoneNumber2" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferenceEmail2" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferenceCompanyName2" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Relationship</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferenceRelationship2" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Should this referee be contacted?</label>
+                        <input type="text" class="form-control" ng-model="staff.ReferenceCanContact2" readonly>
+                    </div>
+                    <button type="button" class="btn btn-default themesecondary bordered-themesecondary" wz-previous><i class="fa fa-angle-left"></i> Previous</button>
+                    <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next>Next <i class="fa fa-angle-right"></i></button>
+                </form>
+            </div>
+        </wz-step>
+
+        <wz-step wz-title="Account Information">
+            <div id="horizontal-form">
+                <form>
+                    <div class="form-group">
+                        &nbsp;
+                    </div>
+                    <div class="form-group">
+                        <img ng-src="{{staff.Picture}}" class="image-handler">
+                    </div>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" class="form-control" ng-model="staff.Username" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Model</label>
+                        <input type="text" class="form-control" ng-model="staff.PhoneModel" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" class="form-control" ng-model="staff.Location.Name" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <input type="text" class="form-control" ng-model="staff.Role.Name" readonly>
+                    </div>
+
+                    <button type="button" class="btn btn-default themesecondary bordered-themesecondary" wz-previous><i class="fa fa-angle-left"></i> Previous</button>
+                    <button type="button" class="btn btn-default themeprimary bordered-themeprimary" wz-next>Next <i class="fa fa-angle-right"></i></button>
+                </form>
+            </div>
+        </wz-step>
+
+        <wz-step wz-title="Approval">
+
+            <div id="horizontal-form">
+                <form>
+                    <div class="form-group">
+                        &nbsp;
+                    </div>
+                    <div class="form-group">
+                        <label>WMB Staff Id</label>
+                        <input type="text" class="form-control" ng-model="staff.StaffID" placeholder="Enter WMB Staff ID" autofocus capitalize>
+                    </div>
+                    <div class="form-group">
+                        <label>Start Date (DD/MM/YYYY)</label>
+                        <input type="text" class="form-control" ng-model="staff.StartDate">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date (DD/MM/YYYY)</label>
+                        <input type="text" class="form-control" ng-model="staff.EndDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Employment Type</label>
+                        <select class="form-control " ng-model="staff.EmploymentType">
+                            <option value="" selected>Select option</option>
+                            <option value="FullTime">Full Time</option>
+                            <option value="TimeTerm">Time Term</option>
+                            <option value="Bank">Bank</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Official Email Address</label>
+                        <input type="text" class="form-control" placeholder="Enter Staff Official Email Address" ng-model="staff.OfficialEmail" lowercase>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Leave Days</label>
+                        <input type="number" class="form-control" ng-model="staff.NumberOfLeaveDays" placeholder="Enter Total Number of Leave Days">
+                    </div>
+                    <button type="button" class="btn btn-default themesecondary bordered-themesecondary" wz-previous><i class="fa fa-angle-left"></i> Previous</button>
+                </form>
+            </div>
+        </wz-step>
+
+    </wizard>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button ng-show="staff.Status == 'Pending'" type="button" class="btn themesecondary bordered-themesecondary" ng-click="decline()">Decline</button>
+    <button ng-show="staff.Status == 'Pending'" type="button" class="btn themeprimary bordered-themeprimary" ng-click="approve()">Approve</button>
+</div>

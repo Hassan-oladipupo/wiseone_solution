@@ -1,0 +1,156 @@
+<div class="row" ng-controller="StaffLeaveDetailsCtrl" ng-init="init()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-list"></i> Staff Leave Details</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-list"></i>
+                        <span class="widget-caption"><b>Staff and Leave Details</b> </span>
+                        <div class="widget-buttons">
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themesecondary bordered-themesecondary" ng-click="goBack()"><i class="fa fa-arrow-circle-left"></i></button>
+                        </div>
+                        <!--Widget Buttons-->
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-xs-12" style="float: left;">
+                                    <h5 class="row-title before-themeprimary"><i class="fa fa-user"></i>Staff Details</h5>
+                                    <div class="form-group">
+                                        <b>Name:</b> {{staff.Name}}
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Staff ID:</b> {{staff.StaffID}}
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Role:</b> {{staff.Role.Name}}
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Location:</b> {{staff.Location.Name}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-sm-1 col-xs-12">
+                                    <h5>&nbsp;</h5>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-xs-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ng-if="!financialYearFetched">
+                                                <i class="fa fa-spinner fa-spin themeprimary"></i> <span class="themeprimary"> {{info}}</span>
+                                            </div>
+                                            <div ng-if="financialYearFetched && !financialYearExists">
+                                                <i class="fa fa-warning themeprimary"></i> <span class="themeprimary"> {{info}}</span>
+                                            </div>
+                                            <div ng-if="financialYearFetched && financialYearExists">
+                                                <h5 class="row-title before-themeprimary"><i class="fa fa-calendar"></i>Financial Year</h5>
+                                                <select class="form-control" ng-options="option.Label for option in financialYears track by option.ID" ng-model="financialYear" ng-change="getStaffLeaves(financialYear)">                                    
+                                                    </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ng-if="financialYearFetched && financialYearExists">
+                                                <p><b>Total Number of Leave Days Applicable:</b> {{staff.NumberOfLeaveDays}} </p>
+                                                <p><b>Compulsory/Bank Holidays:</b> {{staffLeave.BankHolidays.length}} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div ng-if="financialYearFetched && financialYearExists">
+                                        <h5 class="row-title before-themeprimary"><i class="fa fa-calendar"></i>Leave Details</h5>
+                                        <div ng-if="!leaveDetailsFetched && financialYearExists">
+                                            <i class="fa fa-spinner fa-spin themeprimary"></i> <span class="themeprimary"> {{leaveDetailsInfo}}</span>
+                                        </div>
+                                        <div ng-if="leaveDetailsFetched">
+                                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                                <p><b>Non Deductible Leave Days Approved:</b> {{staffLeave.NumberOfNonLeaveTaken}} </p>
+                                                <p><b>Deductible Leave Days Approved:</b> {{staffLeave.NumberOfLeaveTaken}} </p>
+                                                <p><b>Total Leave Days Approved:</b> {{staffLeave.NumberOfLeaveTaken + staffLeave.NumberOfNonLeaveTaken}} </p>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 col-xs-12">
+                                                <p><b>Deductible Leave Days Awaiting Approval:</b> {{staffLeave.NumberOfPendingLeaveTaken}} </p>
+                                                <p> <b>Deductible Days Remaining for Booking Leave:</b> {{staffLeave.NumberOfLeaveRemaining}} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-if="leaveDetailsFetched">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <i class="widget-icon fa fa-gears"></i>
+                        <span class="widget-caption"><b>Staff Booked Leaves</b></span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <div class="row">
+                                <div ng-if="staffLeave.StaffLeave.length == 0" class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p class="themeprimary"><i class="fa fa-info-circle themeprimary"></i> No approved booked leave found for {{staff.Name}}
+                                    </p>
+                                </div>
+                                <div ng-if="staffLeave.StaffLeave.length > 0" class="col-lg-12 col-sm-12 col-xs-12">
+                                    <div class="widget" ng-repeat="leave in staffLeave.StaffLeave">
+                                        <div class="widget-header">
+                                            <i class="widget-icon fa fa-calendar"></i>
+                                            <span class="widget-caption"><b>{{leave.RequestedOn}}</b></span>
+                                            <div class="widget-buttons">
+                                                <div class="widget-buttons buttons-bordered">
+                                                    <button class="btn themesecondary bordered-themesecondary" ng-click="deleteLeave(leave)" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000"><i class="fa fa-times-circle"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-body" style="height: auto;">
+                                            <div id="horizontal-form">
+                                                <div class="row">
+                                                    <div class="col-lg-5 col-sm-5 col-xs-12" style="float: left;">
+                                                        <h5 class="row-title before-themeprimary"><b>Leave {{leave.LeaveType}}</b></h5>
+                                                        <p><b>Leave Type:</b> {{leave.LeaveTypeDescription}}</p>
+                                                        <p><b>Is Leave Deductible:</b>
+                                                            <span ng-if="leave.LeaveIsDeductible">Yes</span>
+                                                            <span ng-if="!leave.LeaveIsDeductible">No</span>
+                                                        </p>
+                                                        <p><b>Number of Days Taken:</b> {{leave.NumberOfLeaveDaysTaken}}</p>
+                                                    </div>
+                                                    <div class="col-lg-1 col-sm-1 col-xs-12">
+                                                        <h5>&nbsp;</h5>
+                                                    </div>
+                                                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                                                        <h5 class="row-title before-themeprimary"><b>Requested Days</b></h5>
+                                                        <p ng-repeat="day in leave.RequestedDays">
+                                                            {{$index+1}}. {{day.Name}} {{day.Day}} {{day.Month}}, {{day.Year}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="modal-header bg-themeprimary flexi-profile-icon">
+    <i class="fa fa-times-circle"></i> Approve or Decline Shift Cancellation Request
+</div>
+<div class="modal-body">
+    <div>
+        <div>
+            <h5 class="row-title before-themeprimary"><i class="fa fa-user themeprimary"></i>{{shift.Staff.KnownAs}} [{{shift.StaffName}}]</h5>
+            <div class="well well-lg col-lg-12">
+                <div id="horizontal-form">
+                    <form>
+                        <div class="row">
+                            <p><b class="themeprimary"><i class="fa fa-list"></i> Shift Details</b></p>
+                            <p><b>Date:</b> {{shift.Day}}, {{shift.Date}}</p>
+                            <p><b>Room:</b> {{shift.Room.Name | uppercase}} </p>
+                            <p><b>Start Time:</b> {{shift.From}} HRS</p>
+                            <p><b>End Time:</b> {{shift.To}} HRS</p>
+                            <p><b class="themesecondary">Cancellation Reason:</b> {{shift.Reason}}</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h5 class="row-title before-themesecondary"><i class="fa fa-check-square-o themesecondary"></i>Approval</h5>
+            <div class="well well-lg">
+                <div id="horizontal-form">
+                    <form>
+                        <div class="form-group">
+                            <label>Approval Type</label>
+                            <select class="form-control" ng-model="approvalType" autofocus ng-change="setApproval()">
+                                    <option value="">Select option</option>
+                                    <option value="Approve">Approve</option>
+                                    <option value="Decline">Decline</option>
+                                </select>
+                        </div>
+                        <div ng-if="enterDeclineReason" class="form-group">
+                            <label>Reason for Declining Shift Cancellation</label>
+                            <input type="text" class="form-control" ng-model="shift.DeclineReason" placeholder="Enter Reason">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button ng-show="shift.ApprovalStatus == 'Pending'" type="button" class="btn themesecondary bordered-themesecondary" ng-click="decline()" ng-disabled="shift.DeclineReason == ''">Decline</button>
+    <button ng-show=" shift.ApprovalStatus=='Pending' " type="button " class="btn themeprimary bordered-themeprimary " ng-click="approve() ">Approve</button>
+</div>

@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Wise1neDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Approvals">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" />
+          <Property Name="Obj" Type="nvarchar(max)" />
+          <Property Name="RequestedOn" Type="datetime" />
+          <Property Name="ApprovedOn" Type="datetime" />
+          <Property Name="Status" Type="nvarchar(max)" />
+          <Property Name="DeclineReason" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Staffs">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DBS" Type="nvarchar" MaxLength="10" />
+          <Property Name="SafeGuarding" Type="nvarchar" MaxLength="10" />
+          <Property Name="FirstAid" Type="nvarchar" MaxLength="10" />
+          <Property Name="Title" Type="nvarchar" MaxLength="10" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="KnownAs" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="DOB" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="PostCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="20" />
+          <Property Name="AlternateTelephone" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="NationalInsuranceNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="Qualifications" Type="nvarchar" MaxLength="250" />
+          <Property Name="DrivingLicense" Type="nvarchar" MaxLength="20" />
+          <Property Name="RegisteredDisabled" Type="nvarchar" MaxLength="20" />
+          <Property Name="ReferenceName1" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReferencePhoneNumber1" Type="nvarchar" MaxLength="20" />
+          <Property Name="ReferenceEmail1" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReferenceName2" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReferencePhoneNumber2" Type="nvarchar" MaxLength="20" />
+          <Property Name="ReferenceEmail2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDate" Type="nvarchar" MaxLength="20" />
+          <Property Name="EndDate" Type="nvarchar" MaxLength="20" />
+          <Property Name="StaffID" Type="nvarchar" MaxLength="20" />
+          <Property Name="PhoneModel" Type="nvarchar" MaxLength="200" />
+          <Property Name="LocationID" Type="bigint" />
+          <Property Name="RoleID" Type="bigint" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="LastModifiedOn" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" />
+          <Property Name="Picture" Type="nvarchar(max)" />
+          <Property Name="EmergencyContactPhoneNo" Type="nvarchar(max)" />
+          <Property Name="ReferenceCompanyName1" Type="nvarchar(max)" />
+          <Property Name="ReferenceRelationship1" Type="nvarchar(max)" />
+          <Property Name="ReferenceCanContact1" Type="nvarchar(max)" />
+          <Property Name="ReferenceCompanyName2" Type="nvarchar(max)" />
+          <Property Name="ReferenceRelationship2" Type="nvarchar(max)" />
+          <Property Name="ReferenceCanContact2" Type="nvarchar(max)" />
+          <Property Name="ExistingStaff" Type="bit" Nullable="false" />
+          <Property Name="OfficialEmail" Type="nvarchar" MaxLength="100" />
+          <Property Name="EmploymentType" Type="nvarchar" MaxLength="100" />
+          <Property Name="NumberOfLeaveDays" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="LeaveType" Type="int" Nullable="false" />
+          <Property Name="Token" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityContainer Name="Wise1neDBModelStoreContainer">
+          <EntitySet Name="Approvals" EntityType="Self.Approvals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staffs" EntityType="Self.Staffs" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Wise1neDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Approval">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Obj" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RequestedOn" Type="DateTime" Precision="3" />
+          <Property Name="ApprovedOn" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DeclineReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="Wise1neDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Approvals" EntityType="Self.Approval" />
+          <EntitySet Name="Staffs" EntityType="Wise1neDBModel.Staff" />
+        </EntityContainer>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DBS" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SafeGuarding" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FirstAid" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KnownAs" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PostCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AlternateTelephone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NationalInsuranceNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Qualifications" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DrivingLicense" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RegisteredDisabled" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceName1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReferencePhoneNumber1" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceEmail1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceName2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReferencePhoneNumber2" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceEmail2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="EndDate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="StaffID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneModel" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LocationID" Type="Int64" />
+          <Property Name="RoleID" Type="Int64" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmergencyContactPhoneNo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceCompanyName1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceRelationship1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceCanContact1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceCompanyName2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceRelationship2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReferenceCanContact2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExistingStaff" Type="Boolean" Nullable="false" />
+          <Property Name="OfficialEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EmploymentType" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NumberOfLeaveDays" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="LeaveType" Type="Int32" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Wise1neDBModelStoreContainer" CdmEntityContainer="Wise1neDBEntities">
+          <EntitySetMapping Name="Approvals">
+            <EntityTypeMapping TypeName="Wise1neDBModel.Approval">
+              <MappingFragment StoreEntitySet="Approvals">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Obj" ColumnName="Obj" />
+                <ScalarProperty Name="RequestedOn" ColumnName="RequestedOn" />
+                <ScalarProperty Name="ApprovedOn" ColumnName="ApprovedOn" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DeclineReason" ColumnName="DeclineReason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="Wise1neDBModel.Staff">
+              <MappingFragment StoreEntitySet="Staffs">
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="LeaveType" ColumnName="LeaveType" />
+                <ScalarProperty Name="NumberOfLeaveDays" ColumnName="NumberOfLeaveDays" />
+                <ScalarProperty Name="EmploymentType" ColumnName="EmploymentType" />
+                <ScalarProperty Name="OfficialEmail" ColumnName="OfficialEmail" />
+                <ScalarProperty Name="ExistingStaff" ColumnName="ExistingStaff" />
+                <ScalarProperty Name="ReferenceCanContact2" ColumnName="ReferenceCanContact2" />
+                <ScalarProperty Name="ReferenceRelationship2" ColumnName="ReferenceRelationship2" />
+                <ScalarProperty Name="ReferenceCompanyName2" ColumnName="ReferenceCompanyName2" />
+                <ScalarProperty Name="ReferenceCanContact1" ColumnName="ReferenceCanContact1" />
+                <ScalarProperty Name="ReferenceRelationship1" ColumnName="ReferenceRelationship1" />
+                <ScalarProperty Name="ReferenceCompanyName1" ColumnName="ReferenceCompanyName1" />
+                <ScalarProperty Name="EmergencyContactPhoneNo" ColumnName="EmergencyContactPhoneNo" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="LastModifiedOn" ColumnName="LastModifiedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="PhoneModel" ColumnName="PhoneModel" />
+                <ScalarProperty Name="StaffID" ColumnName="StaffID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ReferenceEmail2" ColumnName="ReferenceEmail2" />
+                <ScalarProperty Name="ReferencePhoneNumber2" ColumnName="ReferencePhoneNumber2" />
+                <ScalarProperty Name="ReferenceName2" ColumnName="ReferenceName2" />
+                <ScalarProperty Name="ReferenceEmail1" ColumnName="ReferenceEmail1" />
+                <ScalarProperty Name="ReferencePhoneNumber1" ColumnName="ReferencePhoneNumber1" />
+                <ScalarProperty Name="ReferenceName1" ColumnName="ReferenceName1" />
+                <ScalarProperty Name="RegisteredDisabled" ColumnName="RegisteredDisabled" />
+                <ScalarProperty Name="DrivingLicense" ColumnName="DrivingLicense" />
+                <ScalarProperty Name="Qualifications" ColumnName="Qualifications" />
+                <ScalarProperty Name="NationalInsuranceNumber" ColumnName="NationalInsuranceNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AlternateTelephone" ColumnName="AlternateTelephone" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="KnownAs" ColumnName="KnownAs" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FirstAid" ColumnName="FirstAid" />
+                <ScalarProperty Name="SafeGuarding" ColumnName="SafeGuarding" />
+                <ScalarProperty Name="DBS" ColumnName="DBS" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

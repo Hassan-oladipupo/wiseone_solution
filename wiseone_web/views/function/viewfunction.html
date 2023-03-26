@@ -1,0 +1,41 @@
+﻿<div class="row" ng-controller="ViewFunctionCtrl" ng-init="getFunctions()">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-list"></i> View Function</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <span class="widget-caption">Function List</span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                        <div class="widget-buttons buttons-bordered">
+                            <button class="btn themesecondary bordered-themesecondary btn-xs" ng-click="refresh()"><i class="fa fa-refresh"></i></button>
+                        </div>
+                    </div>
+                    <div class="widget-body ">
+                        <table id="functionList" class="table table-sorting table-hover table-bordered datatable dt-rows" cellspacing="0 " width="100% ">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Module</th>
+                                </tr>
+                            </thead>
+
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Module</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

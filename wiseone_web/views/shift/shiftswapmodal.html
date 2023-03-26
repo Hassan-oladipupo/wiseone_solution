@@ -1,0 +1,59 @@
+<div class="modal-header bg-themeprimary flexi-profile-icon">
+    <i class="fa fa-check-square-o"></i> Approve or Decline Shift Swap
+</div>
+<div class="modal-body">
+    <div>
+        <div class="well well-lg padding-10">
+            <div class="row">
+                <div class="col-lg-5 col-sm-5 col-xs-12" style="float: left;">
+                    <h5 class="row-title before-themeprimary">From: <i class="fa fa-user themeprimary"></i>{{shiftSwap.FromShift.StaffKnownAs}}</h5>
+                    <p><b class="themeprimary"><i class="fa fa-calendar"></i> {{shiftSwap.FromShift.Day}}, {{shiftSwap.FromShift.Date}}</b> </p>
+                    <p><b>Room:</b> {{shiftSwap.FromShift.Room.Name | uppercase}} </p>
+                    <p><b>Start Time:</b> {{shiftSwap.FromShift.From}} HRS</p>
+                    <p><b>End Time:</b> {{shiftSwap.FromShift.To}} HRS</p>
+                </div>
+                <div class="col-lg-2 col-sm-2 col-xs-12">
+                    <h5>&nbsp;</h5>
+                    <p>&nbsp;</p>
+                    <p><i class="fa fa-exchange fa-2x themesecondary"></i></p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="col-lg-5 col-sm-5 col-xs-12">
+                    <h5 class="row-title before-themeprimary">To: <i class="fa fa-user themeprimary"></i>{{shiftSwap.ToShift.StaffKnownAs}}</h5>
+                    <p><b class="themeprimary"><i class="fa fa-calendar"></i> {{shiftSwap.ToShift.Day}}, {{shiftSwap.ToShift.Date}}</b> </p>
+                    <p><b>Room:</b> {{shiftSwap.ToShift.Room.Name | uppercase}} </p>
+                    <p><b>Start Time:</b> {{shiftSwap.ToShift.From}} HRS</p>
+                    <p><b>End Time:</b> {{shiftSwap.ToShift.To}} HRS</p>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <h5 class="row-title before-themesecondary"><i class="fa fa-check-square-o themesecondary"></i>Approval</h5>
+            <div class="well well-lg">
+                <div id="horizontal-form">
+                    <form>
+                        <div class="form-group">
+                            <label>Approval Type</label>
+                            <select class="form-control" ng-model="approvalType" autofocus ng-change="setApproval()">
+                                <option value="">Select option</option>
+                                <option value="Approve">Approve</option>
+                                <option value="Decline">Decline</option>
+                            </select>
+                        </div>
+                        <div ng-if="enterDeclineReason" class="form-group">
+                            <label>Reason for Declining Shift Swap</label>
+                            <input type="text" class="form-control" ng-model="shiftSwap.DeclineReason" placeholder="Enter Reason for Declining Shift Swap">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button ng-if="shiftSwap.Status == 'Pending' && approvalType == 'Approve'" type="button" class="btn themeprimary bordered-themeprimary" ng-click="approve()"><i class="fa fa-save"></i> {{approvalType}}</button>
+    <button ng-if="shiftSwap.Status == 'Pending' && approvalType == 'Decline'" type="button" class="btn themesecondary bordered-themesecondary" ng-disabled="shiftSwap.DeclineReason == ''" ng-click="decline()"><i class="fa fa-save"></i> {{approvalType}}</button>
+</div>

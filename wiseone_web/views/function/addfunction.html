@@ -1,0 +1,59 @@
+﻿<div class="row" ng-controller="AddFunctionCtrl">
+    <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <h5 class="row-title themeprimary"><i class="fa fa-plus-square"></i> Add Function</h5>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bordered-top bordered-themeprimary">
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div id="horizontal-form">
+                            <form name="functionForm" ng-submit="save()" novalidate>
+
+                                <!-- NAME -->
+                                <div class="form-group" ng-class="{ 'has-error' : functionForm.name.$invalid && !functionForm.name.$pristine }">
+                                    <label>Name*</label>
+                                    <input type="text" name="name" class="form-control" ng-model="function.Name" placeholder="Function Name" required capitalize>
+                                </div>
+
+                                <!-- TYPE -->
+                                <div class="form-group" ng-class="{ 'has-error' : functionForm.type.$invalid && !functionForm.type.$pristine }">
+                                    <label>Type*</label>
+                                    <select class="form-control" name="type" ng-model="function.Type" required>
+                                        <option value="">Select Type</option>
+                                        <option value="ASSIGN">ASSIGN</option> 
+                                        <option value="APPROVE">APPROVE</option>
+                                        <option value="APPROVESECONDLEVEL">APPROVE SECOND LEVEL</option>
+                                        <option value="CONFIGURE">CONFIGURE</option>
+                                        <option value="CREATE">CREATE</option>
+                                        <option value="DELETE">DELETE</option>
+                                        <option value="ENABLEORDISABLE">ENABLE OR DISABLE</option>
+                                        <option value="UPDATE">UPDATE</option>    
+                                        <option value="VIEW">VIEW</option>
+                                        <option value="MONITOR">MONITOR</option>
+                                        <option value="MANAGE">MANAGE</option>
+                                    </select>
+                                </div>
+
+                                <!-- MODULE -->
+                                <div class="form-group" ng-class="{ 'has-error' : functionForm.module.$invalid && !functionForm.module.$pristine }">
+                                    <label>Module*</label>
+                                    <select class="form-control" name="module" ng-options="option.label for option in Modules" ng-model="selectedModule" required>
+                                        <option value="">Select Module</option>                                       
+                                    </select>
+                                </div>
+
+                                <button type="submit" ng-disabled="!functionForm.$valid" class="btn btn-default themeprimary bordered-themeprimary" ladda="loading" data-style="zoom-in" data-spinner-color="#FF0000"><i class="fa fa-save"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
